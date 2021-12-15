@@ -29,16 +29,16 @@
         </router-link>
       </li>
 
-      <li class="list-item" data-tooltip="Inventory">
-        <router-link to="/inventory">
+      <li class="list-item" data-tooltip="Product">
+        <router-link to="/product">
           <i
-            ><inventory-icon
+            ><product-icon
               class="link-icon"
               width="32px"
               height="32px"
-            ></inventory-icon
+            ></product-icon
           ></i>
-          <span class="text">inventory</span>
+          <span class="text">product</span>
         </router-link>
       </li>
       <li class="list-item" data-tooltip="Contractors">
@@ -77,6 +77,18 @@
           <span class="text">expense</span>
         </router-link>
       </li>
+      <li class="list-item" data-tooltip="Report">
+        <router-link to="/reports">
+          <i
+            ><report-icon
+              class="link-icon"
+              width="32px"
+              height="32px"
+            ></report-icon
+          ></i>
+          <span class="text">report</span>
+        </router-link>
+      </li>
     </ul>
   </nav>
 </template>
@@ -84,22 +96,24 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import menu from "@/assets/icons/sidebar/menu.vue";
-import inventory from "@/assets/icons/sidebar/inventory.vue";
+import product from "@/assets/icons/sidebar/product.vue";
 import contractors from "@/assets/icons/sidebar/contractors.vue";
 import receipt from "@/assets/icons/sidebar/receipt.vue";
 import expense from "@/assets/icons/sidebar/expense.vue";
 import warehouse from "@/assets/icons/sidebar/warehouse.vue";
 import home from "@/assets/icons/sidebar/home.vue";
+import report from "@/assets/icons/sidebar/report.vue";
 
 export default defineComponent({
   components: {
     MenuIcon: menu,
-    InventoryIcon: inventory,
+    ProductIcon: product,
     ContractorsIcon: contractors,
     ReceiptIcon: receipt,
     ExpenseIcon: expense,
     WarehouseIcon: warehouse,
     HomeIcon: home,
+    ReportIcon: report,
   },
   data() {
     return {
@@ -237,20 +251,20 @@ export default defineComponent({
   position: absolute;
   top: 0.25rem;
   display: inline-flex;
-  left: 4.5rem;
+  left: 3.5rem;
   justify-content: center;
   align-items: center;
   width: 5.5rem;
-  border-radius: 0.5em;
+  border: 2px var(--gray-tone-8) solid;
+  border-radius: 8px;
   padding: 0.5em 1em;
-  background-color: #ffffff40;
-  box-shadow: 0 10px 18px -7px #0002;
+  background-color: var(--white-full);
   opacity: 0;
   transform-origin: left;
   pointer-events: none;
-  font-width: 600;
   text-transform: capitalize;
   color: var(--gray600);
+  z-index: 2;
 }
 
 .active [data-tooltip]:hover::before {
@@ -289,9 +303,5 @@ a,
   height: inherit;
   color: #333;
   flex-grow: 1;
-}
-
-.list-item:hover a {
-  font-width: 700;
 }
 </style>

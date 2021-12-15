@@ -22,7 +22,7 @@ import { addNameById } from "@/utils";
 
 export default defineComponent({
   components: { TableAction },
-  name: "Inventory",
+  name: "Receipt",
   data() {
     return {
       headers: ["id", "supplier", "product", "quantity", "price", "date"],

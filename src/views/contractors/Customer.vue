@@ -28,7 +28,7 @@ import api from "@/api/index";
 
 export default defineComponent({
   components: { TableAction, BasePagination },
-  name: "Inventory",
+  name: "Customer",
   data() {
     return {
       headers: headers.customer,

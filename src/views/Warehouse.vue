@@ -16,7 +16,7 @@ import api from "@/api/index";
 import { addNameById } from "@/utils";
 
 export default defineComponent({
-  name: "Inventory",
+  name: "Warehouse",
   components: { BaseTable },
   data() {
     return {

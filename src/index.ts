@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
-import Inventory from "../views/Inventory.vue";
+import Product from "../views/Product.vue";
 import Contractors from "../views/contractors/Contractors.vue";
 import Customer from "../views/contractors/Customer.vue";
 import Supplier from "../views/contractors/Supplier.vue";
@@ -20,9 +20,9 @@ const routes: Array<RouteRecordRaw> = [
     component: Home,
   },
   {
-    path: "/inventory",
-    name: "inventory",
-    component: Inventory,
+    path: "/product",
+    name: "product",
+    component: Product,
   },
   {
     path: "/about",
