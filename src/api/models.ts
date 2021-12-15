@@ -65,8 +65,8 @@ export type baseTable = Product | Supplier | Customer;
 
 export const headers: { [key: string]: string[] } = {
   product: ["id", "name", "code", "unit", "price"],
-  customer: ["id", "name", "inn"],
-  supplier: ["id", "name", "inn"],
+  customer: ["id", "name", "ITIN"],
+  supplier: ["id", "name", "TIN"],
   receipt: ["id", "supplier", "product", "quantity", "price", "date"],
   expense: ["id", "customer", "product", "quantity", "price", "date"],
   warehouse: ["id", "product", "quantity"],

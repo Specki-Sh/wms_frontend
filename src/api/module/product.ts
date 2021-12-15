@@ -14,7 +14,7 @@ export default function (instance: AxiosInstance) {
       return data;
     },
 
-    async getByPage(page: number, perPage = 10) {
+    async getByPage(page: number, perPage = 15) {
       const url = `products?page=${page}&per_page=${perPage}`;
       const { data } = await instance.get(url);
       return data;

@@ -3,13 +3,20 @@ import { Customer } from "../models";
 
 export default function (instance: AxiosInstance) {
   return {
+    // change it, for now it takes only 10 items by first page
     async getAll() {
       const { data } = await instance.get(`customers`);
       return data;
     },
 
     async get(id: number) {
-      const { data } = await instance.get(`customerzzzzz/${id}`);
+      const { data } = await instance.get(`customer/${id}`);
+      return data;
+    },
+
+    async getByPage(page: number, perPage = 15) {
+      const url = `customers?page=${page}&per_page=${perPage}`;
+      const { data } = await instance.get(url);
       return data;
     },
 
