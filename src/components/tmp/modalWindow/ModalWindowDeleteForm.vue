@@ -7,12 +7,12 @@
     </template>
     <template #footer>
       <div class="option">
-        <base-button @click="$emit('agree')" class="option-button">
+        <va-button @click="$emit('agree')" class="option-button">
           <span>Ok</span>
-        </base-button>
-        <base-button @click="$emit('close')" class="option-button">
+        </va-button>
+        <va-button @click="$emit('close')" class="option-button">
           <span>Cancel</span>
-        </base-button>
+        </va-button>
       </div>
     </template>
   </base-modal>
@@ -20,11 +20,10 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import BaseButton from "@/components/BaseButton.vue";
-import BaseModal from "@/components/BaseModal.vue";
+import BaseModal from "@/components/tmp/BaseModal.vue";
 
 export default defineComponent({
-  components: { BaseButton, BaseModal },
+  components: { BaseModal },
   emits: ["agree", "close"],
 });
 </script>

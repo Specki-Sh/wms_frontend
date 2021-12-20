@@ -19,9 +19,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import BaseModal from "@/components/BaseModal.vue";
-import BaseTable from "@/components/table/BaseTable.vue";
-import BaseIcon from "@/components/BaseIcon.vue";
+import BaseModal from "@/components/tmp/BaseModal.vue";
+import BaseTable from "@/components/tmp/table/BaseTable.vue";
+import BaseIcon from "@/components/tmp/BaseIcon.vue";
 import { baseTable as IBaseTable, headers as allHeaders } from "@/api/models";
 import api from "@/api";
 

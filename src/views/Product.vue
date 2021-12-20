@@ -4,13 +4,42 @@
       :desserts="desserts"
       :headers="headers"
       name="product"
-      @updateDessert="updateDessert"
+      @add="addEvent()"
+      @edit="editEvent($event)"
+      @remove="removeEvent($event)"
     />
-    <base-pagination
-      :length="totalPages"
-      @clickPagination="changePage($event)"
+    <va-pagination
       class="pagination"
-    ></base-pagination>
+      v-model="page"
+      :pages="totalPages"
+      input
+    />
+  </div>
+  <div class="modalWindows">
+    <va-modal
+      v-model="showAddModal"
+      @cancel="clearDBModel()"
+      @ok="addItem()"
+      title="Add"
+    >
+      <db-form :labels="headers" v-model="DBModel" />
+    </va-modal>
+    <va-modal
+      v-model="showEditModal"
+      @cancel="clearDBModel(), clearEventItem()"
+      @ok="editItem"
+      title="Edit"
+    >
+      <db-form :labels="headers" v-model="DBModel" />
+    </va-modal>
+    <va-modal
+      v-model="showRemoveModal"
+      @cancel="clearEventItem()"
+      @ok="removeItem()"
+      title="Remove"
+    >
+      This action remove the selected item from the table. Are you sure?
+    </va-modal>
   </div>
 </template>
 
@@ -21,23 +50,31 @@ import { defineComponent } from "vue";
 import { Product as IProduct } from "@/api/models";
 import { headers } from "@/api/models";
 // component
-import TableAction from "@/components/table/TableAction.vue";
-import BasePagination from "@/components/BasePagination.vue";
+import TableAction from "@/components/TableAction.vue";
+import dbForm from "@/components/dbForm.vue";
 // api
 import api from "@/api/index";
-
 export default defineComponent({
-  components: { TableAction, BasePagination },
+  components: { TableAction, dbForm },
   name: "Product",
   data() {
     return {
+      showAddModal: false,
+      showEditModal: false,
+      showRemoveModal: false,
+      eventItem: null as IProduct | null,
+      DBModel: {} as IProduct,
+
       headers: headers.product,
       desserts: [] as Array<IProduct>,
       totalPages: null as number | null,
-      page: null as number | null,
+      page: 1,
     };
   },
   methods: {
+    // TODO: Вынести все это в отдельный компонент c инветами для взаимодейсвтия api,
+    // должно получить 3 ивента(add, edit, remove).
+    // TODO: Реализовать общий интерфейс для action(add, edit, remove) когда будет рефакторинг на composition api
     setPage(page: number) {
       this.page = page;
     },
@@ -56,6 +93,89 @@ export default defineComponent({
       this.setDesserts(data.items);
       this.setTotalPages(data._meta.total_pages);
     },
+
+    setEventItem(item: IProduct) {
+      this.eventItem = item;
+    },
+    clearEventItem() {
+      this.eventItem = null;
+    },
+    setDBModel(item: IProduct) {
+      this.DBModel = item;
+    },
+    clearDBModel() {
+      this.DBModel = {} as IProduct;
+    },
+    // add Event
+    addEvent() {
+      this.changeAddModalStatus();
+    },
+    changeAddModalStatus() {
+      this.showAddModal = !this.showAddModal;
+    },
+    addItem() {
+      api.product.add(this.DBModel).then(
+        () => {
+          this.clearDBModel();
+          this.updateDessert(this.page);
+        },
+        (error: unknown) =>
+          console.warn(
+            "Function removeItem error in Product.vue component",
+            error
+          )
+      );
+    },
+    // edit Event
+    editEvent(item: IProduct) {
+      this.changeEditModalStatus();
+      this.setEventItem(item);
+      this.setDBModel(item);
+    },
+    changeEditModalStatus() {
+      this.showEditModal = !this.showEditModal;
+    },
+    editItem() {
+      const id = this.eventItem?.id;
+      api.product.change(id, this.DBModel).then(
+        () => {
+          this.clearDBModel();
+          this.updateDessert(this.page);
+        },
+        (error: unknown) =>
+          console.warn(
+            "Function removeItem error in Product.vue component",
+            error
+          )
+      );
+    },
+    // remove Event
+    removeEvent(item: IProduct) {
+      this.changeRemoveModalStatus();
+      this.setEventItem(item);
+    },
+    changeRemoveModalStatus() {
+      this.showRemoveModal = !this.showRemoveModal;
+    },
+    removeItem() {
+      const id = this.eventItem?.id;
+      api.product.remove(id).then(
+        () => {
+          this.clearEventItem();
+          this.updateDessert(this.page);
+        },
+        (error: unknown) =>
+          console.warn(
+            "Function removeItem error in Product.vue component",
+            error
+          )
+      );
+    },
+  },
+  watch: {
+    page(newValue) {
+      this.changePage(newValue);
+    },
   },
   mounted() {
     this.updateDessert();
@@ -65,10 +185,10 @@ export default defineComponent({
 
 <style>
 .table {
-  width: 100%;
   margin-top: 3rem;
+  width: 100%;
 }
 .pagination {
-  margin: 3% auto;
+  margin: auto;
 }
 </style>

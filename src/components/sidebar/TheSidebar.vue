@@ -16,7 +16,7 @@
         </router-link>
       </li>
 
-      <li class="list-item" data-tooltip="Warehouse">
+      <!-- <li class="list-item" data-tooltip="Warehouse">
         <router-link to="/warehouse">
           <i
             ><warehouse-icon
@@ -27,7 +27,7 @@
           ></i>
           <span class="text">warehouse</span>
         </router-link>
-      </li>
+      </li> -->
 
       <li class="list-item" data-tooltip="Product">
         <router-link to="/product">
@@ -53,7 +53,7 @@
           <span class="text">contractors</span>
         </router-link>
       </li>
-      <li class="list-item" data-tooltip="Receipt">
+      <!-- <li class="list-item" data-tooltip="Receipt">
         <router-link to="/receipt">
           <i
             ><receipt-icon
@@ -88,7 +88,7 @@
           ></i>
           <span class="text">report</span>
         </router-link>
-      </li>
+      </li> -->
     </ul>
   </nav>
 </template>
@@ -98,22 +98,22 @@ import { defineComponent } from "vue";
 import menu from "@/assets/icons/sidebar/menu.vue";
 import product from "@/assets/icons/sidebar/product.vue";
 import contractors from "@/assets/icons/sidebar/contractors.vue";
-import receipt from "@/assets/icons/sidebar/receipt.vue";
-import expense from "@/assets/icons/sidebar/expense.vue";
-import warehouse from "@/assets/icons/sidebar/warehouse.vue";
+// import receipt from "@/assets/icons/sidebar/receipt.vue";
+// import expense from "@/assets/icons/sidebar/expense.vue";
+// import warehouse from "@/assets/icons/sidebar/warehouse.vue";
 import home from "@/assets/icons/sidebar/home.vue";
-import report from "@/assets/icons/sidebar/report.vue";
+// import report from "@/assets/icons/sidebar/report.vue";
 
 export default defineComponent({
   components: {
     MenuIcon: menu,
     ProductIcon: product,
     ContractorsIcon: contractors,
-    ReceiptIcon: receipt,
-    ExpenseIcon: expense,
-    WarehouseIcon: warehouse,
+    // ReceiptIcon: receipt,
+    // ExpenseIcon: expense,
+    // WarehouseIcon: warehouse,
     HomeIcon: home,
-    ReportIcon: report,
+    // ReportIcon: report,
   },
   data() {
     return {

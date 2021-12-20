@@ -14,13 +14,13 @@
               >
             </div>
             <div class="form-button-block">
-              <base-button
+              <va-button
                 class="form-button"
                 v-if="isTable(header)"
                 @click="callChooseEvent(header)"
               >
                 <span>+</span>
-              </base-button>
+              </va-button>
             </div>
           </div>
         </div>
@@ -28,12 +28,12 @@
     </template>
     <template #footer>
       <div class="option">
-        <base-button @click="$emit('agree', dbModel)" class="option-button">
+        <va-button @click="$emit('agree', dbModel)" class="option-button">
           <span>Ok</span>
-        </base-button>
-        <base-button @click="$emit('close')" class="option-button">
+        </va-button>
+        <va-button @click="$emit('close')" class="option-button">
           <span>Cancel</span>
-        </base-button>
+        </va-button>
       </div>
     </template>
   </base-modal>
@@ -47,19 +47,18 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import BaseButton from "@/components/BaseButton.vue";
-import BaseModal from "@/components/BaseModal.vue";
-import BaseInput from "@/components/BaseInput.vue";
-import ModalChoseTable from "@/components/modalWindow/ModalChooseTable.vue";
+import BaseModal from "@/components/tmp/BaseModal.vue";
+import BaseInput from "@/components/tmp/BaseInput.vue";
+import ModalChoseTable from "@/components/tmp/modalWindow/ModalChooseTable.vue";
 import { isTable } from "@/utils";
 import { baseTable as IBaseTable } from "@/api/models";
 
 export default defineComponent({
-  components: { BaseButton, BaseModal, BaseInput, ModalChoseTable },
+  components: { BaseModal, BaseInput, ModalChoseTable },
   emits: ["agree", "close"],
   data() {
     return {
-      dbModel: this.$attrs.dessert as { [index: string]: any },
+      dbModel: new Object() as { [index: string]: any },
       headers: this.$attrs.headers,
       isChoose: false,
       chooseName: "" as string,
