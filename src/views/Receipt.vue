@@ -20,7 +20,7 @@
 // vue
 import { defineComponent } from "vue";
 // Models
-import { Customer as ICustomer } from "@/api/models";
+import { Receipt as IReceipt } from "@/api/models";
 import { headers } from "@/api/models";
 // component
 import TableAction from "@/components/BaseTableAction.vue";
@@ -29,52 +29,52 @@ import api from "@/api/index";
 
 export default defineComponent({
   components: { TableAction },
-  name: "Customer",
+  name: "Receipt",
   data() {
     return {
-      headers: headers.customer,
-      desserts: [] as Array<ICustomer>,
+      headers: headers.receipt,
+      desserts: [] as Array<IReceipt>,
       totalPages: null as number | null,
       page: 1,
     };
   },
   methods: {
-    setDesserts(desserts: Array<ICustomer>) {
+    setDesserts(desserts: Array<IReceipt>) {
       this.desserts = desserts;
     },
     setTotalPages(pages: number) {
       this.totalPages = pages;
     },
     async updateData(page = 1) {
-      const data = await api.customer.getByPage(page);
+      const data = await api.receipt.getByPage(page);
       this.setDesserts(data.items);
       this.setTotalPages(data._meta.total_pages);
     },
-    addItem(item: ICustomer) {
-      api.customer.add(item).then(
+    addItem(item: IReceipt) {
+      api.receipt.add(item).then(
         () => {
           this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function addItem in Customer.vue", error)
+          console.warn("Function addItem in Receipt.vue", error)
       );
     },
-    editItem(data: { id: number; item: ICustomer }) {
-      api.customer.change(data.id, data.item).then(
+    editItem(data: { id: number; item: IReceipt }) {
+      api.receipt.change(data.id, data.item).then(
         () => {
           this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function EditItem in Customer.vue", error)
+          console.warn("Function EditItem in Receipt.vue", error)
       );
     },
     removeItem(id: number) {
-      api.customer.remove(id).then(
+      api.receipt.remove(id).then(
         () => {
           this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function removeItem in Customer.vue", error)
+          console.warn("Function removeItem in Receipt.vue", error)
       );
     },
   },

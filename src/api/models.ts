@@ -61,6 +61,12 @@ export interface Expense {
   product?: string;
 }
 
+export interface Acceptance {
+  [index: string]: number | string | undefined;
+
+  id: number;
+}
+
 export type baseTable = Product | Supplier | Customer;
 
 export const headers: { [key: string]: string[] } = {
@@ -70,4 +76,5 @@ export const headers: { [key: string]: string[] } = {
   receipt: ["id", "supplier", "product", "quantity", "price", "date"],
   expense: ["id", "customer", "product", "quantity", "price", "date"],
   warehouse: ["id", "product", "quantity"],
+  acceptance: ["id"],
 };

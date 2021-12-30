@@ -4,6 +4,8 @@ import Product from "../views/Product.vue";
 import Contractors from "../views/contractors/Contractors.vue";
 import Customer from "../views/contractors/Customer.vue";
 import Supplier from "../views/contractors/Supplier.vue";
+import Receipt from "../views/Receipt.vue";
+import Acceptance from "../views/Acceptance.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -35,6 +37,16 @@ const routes: Array<RouteRecordRaw> = [
     path: "/contractors/supplier",
     name: "Supplier",
     component: Supplier,
+  },
+  {
+    path: "/receipt",
+    name: "Receipt",
+    component: Receipt,
+  },
+  {
+    path: "/acceptance",
+    name: "Acceptance",
+    component: Acceptance,
   },
 ];
 

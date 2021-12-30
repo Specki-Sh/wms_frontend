@@ -1,11 +1,7 @@
 <template>
   <div v-for="label of labels" :key="label">
-    <va-date-input
-      v-if="label === 'date'"
-      @input="$emit('update:modelValue', $event.target.value)"
-    />
     <va-input
-      v-else-if="label !== 'id'"
+      v-if="label !== 'id'"
       class="mb-4"
       large
       :model-value="modelValue[label]"

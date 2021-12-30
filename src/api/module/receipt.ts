@@ -1,8 +1,16 @@
-import { AxiosInstance } from "axios";
+import { AxiosInstance, AxiosResponse } from "axios";
 import { Receipt } from "../models";
 
-export default function (instance: AxiosInstance) {
+export default function (instance: AxiosInstance): {
+  getAll(): Promise<any>;
+  get(id: number): Promise<any>;
+  getByPage(page: number, perPage?: number): Promise<any>;
+  add(receipt: Receipt): Promise<AxiosResponse<any, any>>;
+  remove(id: number): Promise<any>;
+  change(id: number, receipt: Receipt): Promise<any>;
+} {
   return {
+    // change it, for now it takes only 10 items by first page
     async getAll() {
       const { data } = await instance.get(`receipts`);
       return data;
@@ -10,6 +18,12 @@ export default function (instance: AxiosInstance) {
 
     async get(id: number) {
       const { data } = await instance.get(`receipt/${id}`);
+      return data;
+    },
+
+    async getByPage(page: number, perPage = 15) {
+      const url = `receipts?page=${page}&per_page=${perPage}`;
+      const { data } = await instance.get(url);
       return data;
     },
 

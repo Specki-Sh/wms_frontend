@@ -53,7 +53,7 @@
           <span class="text">contractors</span>
         </router-link>
       </li>
-      <!-- <li class="list-item" data-tooltip="Receipt">
+      <li class="list-item" data-tooltip="Receipt">
         <router-link to="/receipt">
           <i
             ><receipt-icon
@@ -65,7 +65,19 @@
           <span class="text">receipt</span>
         </router-link>
       </li>
-      <li class="list-item" data-tooltip="Expense">
+      <li class="list-item" data-tooltip="Acceptance">
+        <router-link to="/acceptance">
+          <i
+            ><acceptance-icon
+              class="link-icon"
+              width="32px"
+              height="32px"
+            ></acceptance-icon
+          ></i>
+          <span class="text">acceptance</span>
+        </router-link>
+      </li>
+      <!-- <li class="list-item" data-tooltip="Expense">
         <router-link to="/expense">
           <i
             ><expense-icon
@@ -76,8 +88,8 @@
           ></i>
           <span class="text">expense</span>
         </router-link>
-      </li>
-      <li class="list-item" data-tooltip="Report">
+      </li> -->
+      <!-- <li class="list-item" data-tooltip="Report"> 
         <router-link to="/reports">
           <i
             ><report-icon
@@ -98,10 +110,11 @@ import { defineComponent } from "vue";
 import menu from "@/assets/icons/sidebar/menu.vue";
 import product from "@/assets/icons/sidebar/product.vue";
 import contractors from "@/assets/icons/sidebar/contractors.vue";
-// import receipt from "@/assets/icons/sidebar/receipt.vue";
+import receipt from "@/assets/icons/sidebar/receipt.vue";
 // import expense from "@/assets/icons/sidebar/expense.vue";
 // import warehouse from "@/assets/icons/sidebar/warehouse.vue";
 import home from "@/assets/icons/sidebar/home.vue";
+import acceptance from "@/assets/icons/sidebar/acceptance.vue";
 // import report from "@/assets/icons/sidebar/report.vue";
 
 export default defineComponent({
@@ -109,11 +122,12 @@ export default defineComponent({
     MenuIcon: menu,
     ProductIcon: product,
     ContractorsIcon: contractors,
-    // ReceiptIcon: receipt,
+    ReceiptIcon: receipt,
     // ExpenseIcon: expense,
     // WarehouseIcon: warehouse,
     HomeIcon: home,
     // ReportIcon: report,
+    AcceptanceIcon: acceptance,
   },
   data() {
     return {
