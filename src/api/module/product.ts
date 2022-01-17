@@ -10,7 +10,6 @@ export default function (instance: AxiosInstance): {
   change(id: number, product: Product): Promise<any>;
 } {
   return {
-    // change it, for now it takes only 10 items by first page
     async getAll() {
       const { data } = await instance.get(`products`);
       return data;
@@ -22,7 +21,7 @@ export default function (instance: AxiosInstance): {
     },
 
     async getByPage(page: number, perPage = 15) {
-      const url = `products?page=${page}&per_page=${perPage}`;
+      const url = `products/pages/${page}/${perPage}`;
       const { data } = await instance.get(url);
       return data;
     },

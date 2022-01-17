@@ -1,0 +1,9 @@
+{
+    "add": "добавить",
+    "remove": "удалить",
+    "edit": "изменить",
+
+    "compilerOptions": {
+        "resolveJsonModule": true
+    }
+}

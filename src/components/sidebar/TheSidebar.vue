@@ -6,7 +6,7 @@
       /></i>
     </div>
     <ul class="nav_list">
-      <li class="list-item" data-tooltip="Home">
+      <li class="list-item">
         <router-link to="Home">
           <i>
             <home-icon class="link-icon" width="32px" height="32px">
@@ -29,7 +29,7 @@
         </router-link>
       </li> -->
 
-      <li class="list-item" data-tooltip="Product">
+      <li class="list-item">
         <router-link to="/product">
           <i
             ><product-icon
@@ -38,34 +38,46 @@
               height="32px"
             ></product-icon
           ></i>
-          <span class="text">product</span>
+          <span class="text">{{ translationsSidebarRus["products"] }}</span>
         </router-link>
       </li>
-      <li class="list-item" data-tooltip="Contractors">
-        <router-link to="/contractors">
-          <i>
-            <contractors-icon
-              class="link-icon"
-              width="32px"
-              height="32px"
-            ></contractors-icon>
-          </i>
-          <span class="text">contractors</span>
-        </router-link>
+      <li class="list-item">
+        <va-collapse v-model="contractorCollapse" style="width: 100%">
+          <template #header>
+            <div class="sidebar-item">
+              <i>
+                <contractors-icon
+                  class="link-icon"
+                  width="32px"
+                  height="32px"
+                ></contractors-icon>
+              </i>
+              <span class="text">{{
+                translationsSidebarRus["contractors"]
+              }}</span>
+            </div>
+          </template>
+          <template #default>
+            <div class="dropdown-list">
+              <div class="dropdown-item">
+                <router-link to="/contractors/customer">
+                  <span class="text">{{
+                    translationsSidebarRus["customers"]
+                  }}</span>
+                </router-link>
+              </div>
+              <div class="dropdown-item">
+                <router-link to="/contractors/supplier">
+                  <span class="text">{{
+                    translationsSidebarRus["suppliers"]
+                  }}</span>
+                </router-link>
+              </div>
+            </div>
+          </template>
+        </va-collapse>
       </li>
-      <li class="list-item" data-tooltip="Receipt">
-        <router-link to="/receipt">
-          <i
-            ><receipt-icon
-              class="link-icon"
-              width="32px"
-              height="32px"
-            ></receipt-icon
-          ></i>
-          <span class="text">receipt</span>
-        </router-link>
-      </li>
-      <li class="list-item" data-tooltip="Acceptance">
+      <li class="list-item">
         <router-link to="/acceptance">
           <i
             ><acceptance-icon
@@ -74,23 +86,21 @@
               height="32px"
             ></acceptance-icon
           ></i>
-          <span class="text">acceptance</span>
+          <span class="text">{{ translationsSidebarRus["acceptance"] }}</span>
         </router-link>
       </li>
-      <!-- <li class="list-item" data-tooltip="Expense">
-        <router-link to="/expense">
-          <i
-            ><expense-icon
-              class="link-icon"
-              width="32px"
-              height="32px"
-            ></expense-icon
+
+      <li class="list-item">
+        <router-link to="/dispatch">
+          <i>
+            <dispatch-icon class="link-icon" width="32px" height="32px">
+            </dispatch-icon
           ></i>
-          <span class="text">expense</span>
+          <span class="text">{{ translationsSidebarRus["dispatch"] }}</span>
         </router-link>
-      </li> -->
-      <!-- <li class="list-item" data-tooltip="Report"> 
-        <router-link to="/reports">
+      </li>
+      <li class="list-item">
+        <router-link to="/report">
           <i
             ><report-icon
               class="link-icon"
@@ -98,9 +108,9 @@
               height="32px"
             ></report-icon
           ></i>
-          <span class="text">report</span>
+          <span class="text">{{ translationsSidebarRus["report"] }}</span>
         </router-link>
-      </li> -->
+      </li>
     </ul>
   </nav>
 </template>
@@ -110,28 +120,32 @@ import { defineComponent } from "vue";
 import menu from "@/assets/icons/sidebar/menu.vue";
 import product from "@/assets/icons/sidebar/product.vue";
 import contractors from "@/assets/icons/sidebar/contractors.vue";
-import receipt from "@/assets/icons/sidebar/receipt.vue";
+// import receipt from "@/assets/icons/sidebar/receipt.vue";
 // import expense from "@/assets/icons/sidebar/expense.vue";
 // import warehouse from "@/assets/icons/sidebar/warehouse.vue";
 import home from "@/assets/icons/sidebar/home.vue";
 import acceptance from "@/assets/icons/sidebar/acceptance.vue";
-// import report from "@/assets/icons/sidebar/report.vue";
+import dispatch from "@/assets/icons/sidebar/dispatch.vue";
+import report from "@/assets/icons/sidebar/report.vue";
 
 export default defineComponent({
   components: {
     MenuIcon: menu,
     ProductIcon: product,
     ContractorsIcon: contractors,
-    ReceiptIcon: receipt,
+    // ReceiptIcon: receipt,
     // ExpenseIcon: expense,
     // WarehouseIcon: warehouse,
     HomeIcon: home,
-    // ReportIcon: report,
+    ReportIcon: report,
     AcceptanceIcon: acceptance,
+    DispatchIcon: dispatch,
   },
   data() {
     return {
       sidebarStatus: false, // false - open, true - close
+      contractorCollapse: false,
+      translationsSidebarRus: require("../../lang/rus/sidebar.json"),
     };
   },
   methods: {
@@ -228,9 +242,10 @@ export default defineComponent({
 
 .nav_list {
   list-style: none;
+  font-size: 16px;
 }
 .list-item {
-  height: 3rem;
+  height: auto;
   display: flex;
   transition: background 166ms ease;
   position: relative;
@@ -258,31 +273,6 @@ export default defineComponent({
 
 .list-item:hover::after {
   opacity: 1;
-}
-
-.active [data-tooltip]::before {
-  content: attr(data-tooltip);
-  position: absolute;
-  top: 0.25rem;
-  display: inline-flex;
-  left: 3.5rem;
-  justify-content: center;
-  align-items: center;
-  width: 5.5rem;
-  border: 2px var(--gray-tone-8) solid;
-  border-radius: 8px;
-  padding: 0.5em 1em;
-  background-color: var(--white-full);
-  opacity: 0;
-  transform-origin: left;
-  pointer-events: none;
-  text-transform: capitalize;
-  color: var(--gray600);
-  z-index: 2;
-}
-
-.active [data-tooltip]:hover::before {
-  animation: showTooltip 200ms linear 100ms forwards;
 }
 
 @keyframes showTooltip {
@@ -317,5 +307,24 @@ a,
   height: inherit;
   color: #333;
   flex-grow: 1;
+}
+.sidebar-item {
+  height: auto;
+  display: flex;
+  gap: 0.75rem;
+  transition: background 166ms ease;
+  position: relative;
+}
+.dropdown-list {
+  display: flex;
+  flex-flow: column nowrap;
+  height: auto;
+}
+.dropdown-list .dropdown-item {
+  height: 30px;
+  margin-left: 40px;
+}
+.dropdown-item .text:hover {
+  color: var(--accent-tone-100);
 }
 </style>

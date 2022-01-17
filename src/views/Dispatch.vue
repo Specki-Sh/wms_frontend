@@ -22,8 +22,8 @@
 // vue
 import { defineComponent, computed } from "vue";
 // Models
-import { Acceptance as IAcceptance } from "@/api/models";
-import { Supplier as ISupplier, Product as IProduct } from "@/api/models";
+import { Dispatch as IDispatch } from "@/api/models";
+import { Customer as ICustomer, Product as IProduct } from "@/api/models";
 import { headers } from "@/api/models";
 // component
 import ExpenseReceiptTableAction from "@/components/ExpenseReceipt/ExpenseReceiptTableAction.vue";
@@ -38,18 +38,18 @@ interface ITable<T> {
 
 export default defineComponent({
   components: { ExpenseReceiptTableAction },
-  name: "Acceptance",
+  name: "Dispatch",
   data() {
     return {
-      headers: headers.acceptance,
-      desserts: [] as Array<IAcceptance>,
+      headers: headers.dispatch,
+      desserts: [] as Array<IDispatch>,
       totalPages: 0,
       page: 1,
       contractors: {
-        items: [] as Array<ISupplier>,
+        items: [] as Array<ICustomer>,
         totalPages: 0,
-        headers: headers.supplier,
-      } as ITable<ISupplier>,
+        headers: headers.customer,
+      } as ITable<ICustomer>,
       products: {
         items: [] as Array<IProduct>,
         totalPages: 0,
@@ -64,7 +64,7 @@ export default defineComponent({
     };
   },
   methods: {
-    setDesserts(desserts: Array<IAcceptance>) {
+    setDesserts(desserts: Array<IDispatch>) {
       desserts.forEach((dessert) => {
         dessert["date"] = new Date(dessert["date"])
           .toLocaleString()
@@ -76,45 +76,45 @@ export default defineComponent({
       this.totalPages = pages;
     },
     async updateData(page = 1) {
-      const data = await api.acceptance.getByPage(page);
+      const data = await api.dispatch.getByPage(page);
       this.setDesserts(data.items);
       this.setTotalPages(data._meta.total_pages);
     },
-    addItem(item: IAcceptance) {
-      api.acceptance.add(item).then(
+    addItem(item: IDispatch) {
+      api.dispatch.add(item).then(
         () => {
           this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function addItem in Acceptance.vue", error)
+          console.warn("Function addItem in Dispatch.vue", error)
       );
     },
-    editItem(data: { id: number; item: IAcceptance }) {
-      api.acceptance.change(data.id, data.item).then(
+    editItem(data: { id: number; item: IDispatch }) {
+      api.dispatch.change(data.id, data.item).then(
         () => {
           this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function EditItem in Acceptance.vue", error)
+          console.warn("Function EditItem in Dispatch.vue", error)
       );
     },
     removeItem(id: number) {
-      api.acceptance.remove(id).then(
+      api.dispatch.remove(id).then(
         () => {
           this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function removeItem in Acceptance.vue", error)
+          console.warn("Function removeItem in Dispatch.vue", error)
       );
     },
-    setContractorsItems(item: Array<ISupplier>) {
+    setContractorsItems(item: Array<ICustomer>) {
       this.contractors.items = item;
     },
     setContractorsTotalPages(pages: number) {
       this.contractors.totalPages = pages;
     },
     async updateContractors(page = 1) {
-      const data = await api.supplier.getByPage(page);
+      const data = await api.customer.getByPage(page);
       this.setContractorsItems(data.items);
       this.setContractorsTotalPages(data._meta.total_pages);
     },

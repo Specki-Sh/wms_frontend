@@ -1,29 +1,6 @@
 <template>
   <div class="cards-list">
-    <router-link to="/contractors/customer">
-      <div class="card 1">
-        <div class="card_image">
-          <img
-            src="https://design4users.com/wp-content/uploads/2021/03/digital-art-andrey-prokopenko-illustration-2.png.pagespeed.ce.UKMkAOME86.png"
-          />
-        </div>
-        <div class="card_title title-white">
-          <p>Customer</p>
-        </div>
-      </div>
-    </router-link>
-    <router-link to="/contractors/supplier">
-      <div class="card 2">
-        <div class="card_image">
-          <img
-            src="https://design4users.com/wp-content/uploads/2021/03/digital-art-andrey-prokopenko-illustration-14.png.pagespeed.ce.LZBlzA6_Y7.png"
-          />
-        </div>
-        <div class="card_title title-white">
-          <p>Supplier</p>
-        </div>
-      </div>
-    </router-link>
+
   </div>
 </template>
 

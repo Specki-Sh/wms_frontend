@@ -1,7 +1,17 @@
 <template>
   <div class="header">
     <div class="line document-number">
-      <va-input class="mb-4" v-model="value" type="number">
+      <va-input
+        class="mb-4"
+        :model-value="modelValue['document_number']"
+        type="number"
+        @update:model-value="
+          $emit('update:modelValue', {
+            ...modelValue,
+            ['document_number']: $event,
+          })
+        "
+      >
         <template #prepend>
           <span>Document number</span>
         </template>
@@ -70,7 +80,6 @@
       </template>
 
       <template #cell(action)="row">
-        {{ slotProps }}
         <va-button
           @click="removeProducts(row.rowIndex)"
           icon="delete_outline"

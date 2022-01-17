@@ -1,0 +1,20 @@
+{
+    "product": "продукт",
+    "products": "продукты",
+    "contractor": "контрагент",
+    "contractors": "контрагенты",
+    "customer": "клиент",
+    "customers": "клиенты",
+    "supplier": "поставщик",
+    "suppliers": "поставщики",
+    "acceptance": "приходная",
+    "acceptances": "приходные",
+    "dispatch": "расходная",
+    "dispatches": "расходные",
+    "report": "отчет",
+    "reports": "отчеты",
+    
+    "compilerOptions": {
+        "resolveJsonModule": true
+    }
+}

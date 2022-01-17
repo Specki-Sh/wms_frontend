@@ -5,8 +5,6 @@
       :columns="[...headers, 'action']"
       :striped="true"
       :hoverable="true"
-      clickable
-      @row:click="setCurrentItem($event.item)"
     >
       <template #headerPrepend>
         <div class="title-content">
@@ -14,20 +12,13 @@
         </div>
       </template>
 
-      <template #cell(action)>
-        <va-button-dropdown size="small" flat class="ml-2">
-          <va-button-group flat>
-            <va-button @click="editEvent(currentItem)" icon="edit">
-              Edit
-            </va-button>
+      <template #cell(action)="row">
             <va-button
-              @click="removeEvent(currentItem)"
-              icon-right="delete_outline"
+              @click="removeEvent(row.rowIndex)"
+              icon="delete_outline"
+              flat
             >
-              Remove
             </va-button>
-          </va-button-group>
-        </va-button-dropdown>
       </template>
     </va-data-table>
   </div>
@@ -49,12 +40,22 @@
     <va-modal
       v-model="showEditModal"
       @cancel="clearDBModel()"
-      @ok="editItem"
+      @ok="editItem()"
       title="Edit"
     >
-      <the-data-base-form :labels="headers" v-model="DBModel" />
+      <expense-receipt-form
+        :labels="headers"
+        v-model="DBModel"
+        @update:Contractors="$emit('update:Contractors', $event)"
+        @update:Products="$emit('update:Products', $event)"
+      />
     </va-modal>
-    <va-modal v-model="showRemoveModal" @ok="removeItem()" title="Remove">
+    <va-modal
+      v-model="showRemoveModal"
+      @cancel="clearDBModel()"
+      @ok="removeItem()"
+      title="Remove"
+    >
       This action remove the selected item from the table. Are you sure?
     </va-modal>
   </div>
@@ -63,12 +64,11 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { Product, Supplier, Customer, Receipt, Expense } from "@/api/models";
-import TheDataBaseForm from "../TheDataBaseForm.vue";
 import ExpenseReceiptForm from "./ExpenseReceiptForm.vue";
 type IDBTable = Product | Supplier | Customer | Receipt | Expense;
 
 export default defineComponent({
-  components: { TheDataBaseForm, ExpenseReceiptForm },
+  components: { ExpenseReceiptForm },
   name: "ActionTable",
   emits: ["add", "edit", "remove", "update:Contractors", "update:Products"],
   props: {
@@ -86,10 +86,6 @@ export default defineComponent({
   },
 
   methods: {
-    setCurrentItem(item: IDBTable): void {
-      this.currentItem = item;
-    },
-
     setDBModel(item: IDBTable) {
       this.DBModel = item;
     },
@@ -106,29 +102,33 @@ export default defineComponent({
     },
     addItem() {
       this.$emit("add", this.DBModel);
+      this.clearDBModel();
     },
     // edit Event
-    editEvent() {
+    editEvent(id: number) {
       this.changeEditModalStatus();
-      this.setDBModel(this.currentItem);
+      this.setDBModel(this.desserts[id]);
     },
     changeEditModalStatus() {
       this.showEditModal = !this.showEditModal;
     },
     editItem() {
-      const id = this.currentItem?.id;
+      const id: number = this.DBModel.id;
       this.$emit("edit", { id, item: this.DBModel });
+      this.clearDBModel();
     },
     // remove Event
-    removeEvent() {
+    removeEvent(id: number) {
       this.changeRemoveModalStatus();
+      this.setDBModel(this.desserts[id]);
     },
     changeRemoveModalStatus() {
       this.showRemoveModal = !this.showRemoveModal;
     },
     removeItem() {
-      const id = this.currentItem?.id;
+      const id: number = this.DBModel.id;
       this.$emit("remove", id);
+      this.clearDBModel();
     },
   },
 });
