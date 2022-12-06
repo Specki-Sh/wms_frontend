@@ -139,7 +139,7 @@ export default defineComponent({
     HomeIcon: home,
     ReportIcon: report,
     AcceptanceIcon: acceptance,
-    DispatchIcon: expense,
+    ExpenseIcon: expense,
   },
   data() {
     return {
