@@ -1,16 +1,21 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
-import { VuesticPlugin } from "vuestic-ui";
+import { createVuestic } from "vuestic-ui";
 import "vuestic-ui/dist/vuestic-ui.css";
+
 
 createApp(App)
   .use(router)
-  .use(VuesticPlugin, {
-    colors: {
-      primary: "#644ded",
-    },
+  .use(createVuestic({
+    config:{
+      colors: {
+        variables: {
+          primary: "#644ded",
+        }
+    }},
   })
+  )
   .mount("#app");
 
 //color

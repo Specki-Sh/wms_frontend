@@ -4,7 +4,7 @@
       v-if="label !== 'id'"
       class="mb-4"
       large
-      :model-value="modelValue[label]"
+      v-model="modelValue[label]"
       @input="
         $emit('update:modelValue', {
           ...modelValue,

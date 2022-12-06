@@ -36,19 +36,21 @@ export default defineComponent({
       desserts: [] as Array<ICustomer>,
       totalPages: null as number | null,
       page: 1,
+      per_page: 10,
     };
   },
   methods: {
     setDesserts(desserts: Array<ICustomer>) {
       this.desserts = desserts;
     },
-    setTotalPages(pages: number) {
-      this.totalPages = pages;
+    setTotalPages(total: number) {
+      this.totalPages = (total - total % this.per_page) / this.per_page;
+      if (total % this.per_page != 0){ this.totalPages += 1}
     },
     async updateData(page = 1) {
-      const data = await api.customer.getByPage(page);
-      this.setDesserts(data.items);
-      this.setTotalPages(data._meta.total_pages);
+      const data = await api.customer.getByPage(page, this.per_page);
+      this.setDesserts(data.customers);
+      this.setTotalPages(data.total);
     },
     addItem(item: ICustomer) {
       api.customer.add(item).then(

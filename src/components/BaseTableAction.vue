@@ -15,23 +15,19 @@
       </template>
 
       <template #cell(action)="row">
-        <va-button-dropdown size="small" flat class="ml-2">
-          <va-button-group flat>
             <va-button
               v-if="isEditAction"
               @click="editEvent(row.rowIndex)"
+              preset="plain"
               icon="edit"
             >
-              {{ translationsActionRus["edit"] }}
             </va-button>
             <va-button
               @click="removeEvent(row.rowIndex)"
+              preset="plain"
               icon-right="delete_outline"
             >
-              {{ translationsActionRus["remove"] }}
             </va-button>
-          </va-button-group>
-        </va-button-dropdown>
       </template>
     </va-data-table>
   </div>

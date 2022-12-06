@@ -3,7 +3,6 @@ export interface Product {
   name: string;
   code: string;
   unit: string;
-  price: number;
 }
 
 export interface Warehouse {
@@ -73,9 +72,12 @@ export interface Report {
   closing_balance: number;
 }
 
+export interface baseTable extends Product, Warehouse, Supplier, Customer, Expense, Receipt, Receipt{
+}
+
 export const headers: { [key: string]: Array<string> } = {
-  product: ["id", "name", "code", "unit", "price"],
-  customer: ["id", "name", "ITIN"],
+  product: ["id", "name", "code", "unit"],
+  customer: ["id", "name", "TIN"],
   supplier: ["id", "name", "TIN"],
   receipt: [
     "id",

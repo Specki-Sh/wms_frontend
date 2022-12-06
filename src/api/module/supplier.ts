@@ -15,7 +15,7 @@ export default function (instance: AxiosInstance) {
     },
 
     async getByPage(page: number, perPage = 15) {
-      const url = `suppliers?page=${page}&per_page=${perPage}`;
+      const url = `suppliers/page/${page}/${perPage}`;
       const { data } = await instance.get(url);
       return data;
     },

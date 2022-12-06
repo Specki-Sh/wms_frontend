@@ -35,7 +35,6 @@ export default defineComponent({
       desserts.forEach((elm) => {
         elm["product_name"] = elm.product.name;
         elm["product_unit"] = elm.product.unit;
-        elm["product_price"] = elm.product.price;
       });
       this.desserts = desserts;
     },
