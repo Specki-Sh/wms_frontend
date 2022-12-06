@@ -61,10 +61,10 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { Product, Supplier, Customer, Receipt, Expense } from "@/api/models";
+import { Product, Supplier, Customer, DeliveredProduct, Expense } from "@/api/models";
 import TheDataBaseForm from "./TheDataBaseForm.vue";
 // TODO: IDBTable переменовать в IDBTables, добавить в отдельный файл с последующим импортом в данный компонент
-type IDBTable = Product | Supplier | Customer | Receipt | Expense;
+type IDBTable = Product | Supplier | Customer | DeliveredProduct | Expense;
 
 export default defineComponent({
   components: { TheDataBaseForm },

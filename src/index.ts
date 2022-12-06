@@ -4,7 +4,7 @@ import Product from "../views/Product.vue";
 import Contractors from "../views/contractors/Contractors.vue";
 import Customer from "../views/contractors/Customer.vue";
 import Supplier from "../views/contractors/Supplier.vue";
-import Receipt from "../views/Receipt.vue";
+import DeliveredProduct from "../views/DeliveredProduct.vue";
 import Expense from "../views/Expense.vue";
 import Warehouse from "../views/Warehouse.vue";
 
@@ -49,9 +49,9 @@ const routes: Array<RouteRecordRaw> = [
     component: Supplier,
   },
   {
-    path: "/receipt",
-    name: "Receipt",
-    component: Receipt,
+    path: "/delivered_product",
+    name: "DeliveredProduct",
+    component: DeliveredProduct,
   },
   {
     path: "/expense",

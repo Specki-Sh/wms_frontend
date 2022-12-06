@@ -24,7 +24,7 @@ export interface Supplier {
   name: string;
 }
 
-export interface Receipt {
+export interface DeliveredProduct {
   id: number;
   supplier_id: number;
   product_id: number;
@@ -49,7 +49,7 @@ export interface Expense {
 export interface Acceptance {
   id: number;
   document_number: number;
-  receipts: Array<Receipt>;
+  delivered_products: Array<DeliveredProduct>;
   date: Date | string;
 }
 
@@ -67,19 +67,19 @@ export interface Report {
   product_unit: string;
   product_price: number;
   opening_balance: number;
-  receipt: number;
+  delivered_product: number;
   expense: number;
   closing_balance: number;
 }
 
-export interface baseTable extends Product, Warehouse, Supplier, Customer, Expense, Receipt, Receipt{
+export interface baseTable extends Product, Warehouse, Supplier, Customer, Expense, DeliveredProduct, DeliveredProduct{
 }
 
 export const headers: { [key: string]: Array<string> } = {
   product: ["id", "name", "code", "unit"],
   customer: ["id", "name", "TIN"],
   supplier: ["id", "name", "TIN"],
-  receipt: [
+  delivered_product: [
     "id",
     "acceptance_id",
     "supplier_id",
@@ -103,7 +103,7 @@ export const headers: { [key: string]: Array<string> } = {
     "product_unit",
     "product_price",
     "opening_balance",
-    "receipt",
+    "delivered_product",
     "expense",
     "closing_balance",
   ],

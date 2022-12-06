@@ -30,7 +30,7 @@
       title="Add"
       fullscreen
     >
-      <expense-receipt-form
+      <expense-delivered_product-form
         :labels="headers"
         v-model="DBModel"
         @update:Contractors="$emit('update:Contractors', $event)"
@@ -43,7 +43,7 @@
       @ok="editItem()"
       title="Edit"
     >
-      <expense-receipt-form
+      <expense-delivered_product-form
         :labels="headers"
         v-model="DBModel"
         @update:Contractors="$emit('update:Contractors', $event)"
@@ -63,12 +63,12 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { Product, Supplier, Customer, Receipt, Expense } from "@/api/models";
-import ExpenseReceiptForm from "./ExpenseReceiptForm.vue";
-type IDBTable = Product | Supplier | Customer | Receipt | Expense;
+import { Product, Supplier, Customer, DeliveredProduct, Expense } from "@/api/models";
+import ExpenseDeliveredProductForm from "./ExpenseDeliveredProductForm.vue";
+type IDBTable = Product | Supplier | Customer | DeliveredProduct | Expense;
 
 export default defineComponent({
-  components: { ExpenseReceiptForm },
+  components: { ExpenseDeliveredProductForm },
   name: "ActionTable",
   emits: ["add", "edit", "remove", "update:Contractors", "update:Products"],
   props: {

@@ -4,7 +4,7 @@ import productModule from "./module/product";
 import warehouseModule from "./module/warehouse";
 import supplierModule from "./module/supplier";
 import customerModule from "./module/customer";
-import receiptModule from "./module/receipt";
+import delivered_productModule from "./module/delivered_product";
 import expenseModule from "./module/expense";
 import acceptanceModule from "./module/acceptance";
 import dispatchModule from "./module/dispatch";
@@ -15,7 +15,7 @@ const api: { [index: string]: any } = {
   warehouse: warehouseModule(instance),
   supplier: supplierModule(instance),
   customer: customerModule(instance),
-  receipt: receiptModule(instance),
+  delivered_product: delivered_productModule(instance),
   expense: expenseModule(instance),
   acceptance: acceptanceModule(instance),
   dispatch: dispatchModule(instance),
