@@ -22,7 +22,7 @@
 // vue
 import { defineComponent, computed } from "vue";
 // Models
-import { Dispatch as IDispatch } from "@/api/models";
+import { Expense as IDispatch } from "@/api/models";
 import { Customer as ICustomer, Product as IProduct } from "@/api/models";
 import { headers } from "@/api/models";
 // component
@@ -38,10 +38,10 @@ interface ITable<T> {
 
 export default defineComponent({
   components: { DispatchedProductDeliveredProductTableAction },
-  name: "Dispatch",
+  name: "Expense",
   data() {
     return {
-      headers: headers.dispatch,
+      headers: headers.expense,
       desserts: [] as Array<IDispatch>,
       totalPages: 0,
       page: 1,
@@ -76,35 +76,35 @@ export default defineComponent({
       this.totalPages = pages;
     },
     async updateData(page = 1) {
-      const data = await api.dispatch.getByPage(page);
+      const data = await api.expense.getByPage(page);
       this.setDesserts(data.items);
       this.setTotalPages(data._meta.total_pages);
     },
     addItem(item: IDispatch) {
-      api.dispatch.add(item).then(
+      api.expense.add(item).then(
         () => {
           this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function addItem in Dispatch.vue", error)
+          console.warn("Function addItem in Expense.vue", error)
       );
     },
     editItem(data: { id: number; item: IDispatch }) {
-      api.dispatch.change(data.id, data.item).then(
+      api.expense.change(data.id, data.item).then(
         () => {
           this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function EditItem in Dispatch.vue", error)
+          console.warn("Function EditItem in Expense.vue", error)
       );
     },
     removeItem(id: number) {
-      api.dispatch.remove(id).then(
+      api.expense.remove(id).then(
         () => {
           this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function removeItem in Dispatch.vue", error)
+          console.warn("Function removeItem in Expense.vue", error)
       );
     },
     setContractorsItems(item: Array<ICustomer>) {

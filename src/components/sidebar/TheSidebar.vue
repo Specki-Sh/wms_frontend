@@ -91,12 +91,12 @@
       </li>
 
       <li class="list-item">
-        <router-link to="/dispatch">
+        <router-link to="/expense">
           <i>
-            <dispatch-icon class="link-icon" width="32px" height="32px">
-            </dispatch-icon
+            <expense-icon class="link-icon" width="32px" height="32px">
+            </expense-icon
           ></i>
-          <span class="text">{{ translationsSidebarRus["dispatch"] }}</span>
+          <span class="text">{{ translationsSidebarRus["expense"] }}</span>
         </router-link>
       </li>
       <li class="list-item">
@@ -125,7 +125,7 @@ import contractors from "@/assets/icons/sidebar/contractors.vue";
 // import warehouse from "@/assets/icons/sidebar/warehouse.vue";
 import home from "@/assets/icons/sidebar/home.vue";
 import acceptance from "@/assets/icons/sidebar/acceptance.vue";
-import dispatch from "@/assets/icons/sidebar/dispatch.vue";
+import expense from "@/assets/icons/sidebar/expense.vue";
 import report from "@/assets/icons/sidebar/report.vue";
 
 export default defineComponent({
@@ -139,7 +139,7 @@ export default defineComponent({
     HomeIcon: home,
     ReportIcon: report,
     AcceptanceIcon: acceptance,
-    DispatchIcon: dispatch,
+    DispatchIcon: expense,
   },
   data() {
     return {

@@ -53,7 +53,7 @@ export interface Acceptance {
   date: Date | string;
 }
 
-export interface Dispatch {
+export interface Expense {
   id: number;
   document_number: number;
   dispatched_products: Array<DispatchedProduct>;
@@ -97,7 +97,7 @@ export const headers: { [key: string]: Array<string> } = {
   ],
   warehouse: ["id", "product_id", "quantity"],
   acceptance: ["id", "document_number", "date"],
-  dispatch: ["id", "document_number", "date"],
+  expense: ["id", "document_number", "date"],
   report: [
     "product_name",
     "product_unit",

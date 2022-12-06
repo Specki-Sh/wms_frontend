@@ -1,13 +1,13 @@
 import { AxiosInstance, AxiosResponse } from "axios";
-import { Dispatch } from "../models";
+import { Expense } from "../models";
 
 export default function (instance: AxiosInstance): {
   getAll(): Promise<any>;
   get(id: number): Promise<any>;
   getByPage(page: number, perPage?: number): Promise<any>;
-  add(dispatch: Dispatch): Promise<AxiosResponse<any, any>>;
+  add(expense: Expense): Promise<AxiosResponse<any, any>>;
   remove(id: number): Promise<any>;
-  change(id: number, dispatch: Dispatch): Promise<any>;
+  change(id: number, expense: Expense): Promise<any>;
 } {
   return {
     // change it, for now it takes only 10 items by first page
@@ -17,7 +17,7 @@ export default function (instance: AxiosInstance): {
     },
 
     async get(id: number) {
-      const { data } = await instance.get(`dispatch/${id}`);
+      const { data } = await instance.get(`expense/${id}`);
       return data;
     },
 
@@ -27,16 +27,16 @@ export default function (instance: AxiosInstance): {
       return data;
     },
 
-    async add(dispatch: Dispatch) {
-      return await instance.post(`dispatch`, dispatch);
+    async add(expense: Expense) {
+      return await instance.post(`expense`, expense);
     },
 
     async remove(id: number) {
-      return await instance.delete(`dispatch/${id}`);
+      return await instance.delete(`expense/${id}`);
     },
 
-    async change(id: number, dispatch: Dispatch) {
-      return await instance.put(`dispatch/${id}`, dispatch);
+    async change(id: number, expense: Expense) {
+      return await instance.put(`expense/${id}`, expense);
     },
   };
 }
