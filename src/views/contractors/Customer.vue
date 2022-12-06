@@ -7,12 +7,23 @@
       @edit="editItem($event)"
       @remove="removeItem($event)"
     />
-    <va-pagination
-      class="pagination"
-      v-model="page"
-      :pages="totalPages"
-      input
-    />
+    <div class="table-example--pagination">
+      <va-pagination
+        class="pagination"
+        v-model="page"
+        :pages="totalPages"
+        input
+      />
+    </div>
+    <div>
+      <va-input
+        class="flex mb-2 md3"
+        type="number"
+        placeholder="Items..."
+        label="Items per page"
+        v-model="per_page"
+      />
+    </div>
   </div>
 </template>
 
@@ -47,15 +58,15 @@ export default defineComponent({
       this.totalPages = (total - total % this.per_page) / this.per_page;
       if (total % this.per_page != 0){ this.totalPages += 1}
     },
-    async updateData(page = 1) {
-      const data = await api.customer.getByPage(page, this.per_page);
+    async updateData() {
+      const data = await api.customer.getByPage(this.page, this.per_page);
       this.setDesserts(data.customers);
       this.setTotalPages(data.total);
     },
     addItem(item: ICustomer) {
       api.customer.add(item).then(
         () => {
-          this.updateData(this.page);
+          this.updateData();
         },
         (error: unknown) =>
           console.warn("Function addItem in Customer.vue", error)
@@ -64,7 +75,7 @@ export default defineComponent({
     editItem(data: { id: number; item: ICustomer }) {
       api.customer.change(data.id, data.item).then(
         () => {
-          this.updateData(this.page);
+          this.updateData();
         },
         (error: unknown) =>
           console.warn("Function EditItem in Customer.vue", error)
@@ -73,7 +84,7 @@ export default defineComponent({
     removeItem(id: number) {
       api.customer.remove(id).then(
         () => {
-          this.updateData(this.page);
+          this.updateData();
         },
         (error: unknown) =>
           console.warn("Function removeItem in Customer.vue", error)
@@ -81,8 +92,11 @@ export default defineComponent({
     },
   },
   watch: {
-    page(newValue) {
-      this.updateData(newValue);
+    page() {``
+      this.updateData();
+    },
+    per_page() {``
+      this.updateData();
     },
   },
   mounted() {
@@ -91,12 +105,16 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="scss" scoped>
 .table {
   margin-top: 3rem;
   width: 100%;
 }
 .pagination {
   margin: auto;
+}
+.table-example--pagination {
+  display: flex;
+  justify-content: center;
 }
 </style>
