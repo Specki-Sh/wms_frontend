@@ -20,7 +20,7 @@
 // vue
 import { defineComponent } from "vue";
 // Models
-import { Expense as IExpense } from "@/api/models";
+import { DispatchedProduct as IDispatchedProduct } from "@/api/models";
 import { headers } from "@/api/models";
 // component
 import TableAction from "@/components/BaseTableAction.vue";
@@ -29,52 +29,52 @@ import api from "@/api/index";
 
 export default defineComponent({
   components: { TableAction },
-  name: "Expense",
+  name: "DispatchedProduct",
   data() {
     return {
-      headers: headers.expense,
-      desserts: [] as Array<IExpense>,
+      headers: headers.dispatched_product,
+      desserts: [] as Array<IDispatchedProduct>,
       totalPages: null as number | null,
       page: 1,
     };
   },
   methods: {
-    setDesserts(desserts: Array<IExpense>) {
+    setDesserts(desserts: Array<IDispatchedProduct>) {
       this.desserts = desserts;
     },
     setTotalPages(pages: number) {
       this.totalPages = pages;
     },
     async updateData(page = 1) {
-      const data = await api.expense.getByPage(page);
+      const data = await api.dispatched_product.getByPage(page);
       this.setDesserts(data.items);
       this.setTotalPages(data._meta.total_pages);
     },
-    addItem(item: IExpense) {
-      api.expense.add(item).then(
+    addItem(item: IDispatchedProduct) {
+      api.dispatched_product.add(item).then(
         () => {
           this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function addItem in Expense.vue", error)
+          console.warn("Function addItem in DispatchedProduct.vue", error)
       );
     },
-    editItem(data: { id: number; item: IExpense }) {
-      api.expense.change(data.id, data.item).then(
+    editItem(data: { id: number; item: IDispatchedProduct }) {
+      api.dispatched_product.change(data.id, data.item).then(
         () => {
           this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function EditItem in Expense.vue", error)
+          console.warn("Function EditItem in DispatchedProduct.vue", error)
       );
     },
     removeItem(id: number) {
-      api.expense.remove(id).then(
+      api.dispatched_product.remove(id).then(
         () => {
           this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function removeItem in Expense.vue", error)
+          console.warn("Function removeItem in DispatchedProduct.vue", error)
       );
     },
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="table">
-    <expense-delivered_product-table-action
+    <goods-table-action
       :headers="headers"
       :desserts="desserts"
       @add="addItem($event)"
@@ -26,7 +26,7 @@ import { Acceptance as IAcceptance } from "@/api/models";
 import { Supplier as ISupplier, Product as IProduct } from "@/api/models";
 import { headers } from "@/api/models";
 // component
-import ExpenseDeliveredProductTableAction from "@/components/ExpenseDeliveredProduct/ExpenseDeliveredProductTableAction.vue";
+import DispatchedProductDeliveredProductTableAction from "@/components/DispatchedProductDeliveredProduct/DispatchedProductDeliveredProductTableAction.vue";
 // api
 import api from "@/api/index";
 
@@ -37,7 +37,7 @@ interface ITable<T> {
 }
 
 export default defineComponent({
-  components: { ExpenseDeliveredProductTableAction },
+  components: { DispatchedProductDeliveredProductTableAction },
   name: "Acceptance",
   data() {
     return {

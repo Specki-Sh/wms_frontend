@@ -121,7 +121,7 @@ import menu from "@/assets/icons/sidebar/menu.vue";
 import product from "@/assets/icons/sidebar/product.vue";
 import contractors from "@/assets/icons/sidebar/contractors.vue";
 // import delivered_product from "@/assets/icons/sidebar/delivered_product.vue";
-// import expense from "@/assets/icons/sidebar/expense.vue";
+// import dispatched_product from "@/assets/icons/sidebar/dispatched_product.vue";
 // import warehouse from "@/assets/icons/sidebar/warehouse.vue";
 import home from "@/assets/icons/sidebar/home.vue";
 import acceptance from "@/assets/icons/sidebar/acceptance.vue";
@@ -134,7 +134,7 @@ export default defineComponent({
     ProductIcon: product,
     ContractorsIcon: contractors,
     // DeliveredProductIcon: delivered_product,
-    // ExpenseIcon: expense,
+    // DispatchedProductIcon: dispatched_product,
     // WarehouseIcon: warehouse,
     HomeIcon: home,
     ReportIcon: report,

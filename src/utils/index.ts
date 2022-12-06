@@ -1,5 +1,5 @@
-import { Warehouse, DeliveredProduct, Expense } from "@/api/models";
-type arrayDBModels = Array<Warehouse> | Array<DeliveredProduct> | Array<Expense>;
+import { Warehouse, DeliveredProduct, DispatchedProduct } from "@/api/models";
+type arrayDBModels = Array<Warehouse> | Array<DeliveredProduct> | Array<DispatchedProduct>;
 //
 // export function addNameById(objArr: arrayDBModels): void {
 //   for (const obj of objArr) {
@@ -21,7 +21,7 @@ export function isTable(str: string): boolean {
     "customer",
     "supplier",
     "delivered_product",
-    "expense",
+    "dispatched_product",
     "warehouse",
   ];
   return tableArray.includes(str);
