@@ -1,11 +1,13 @@
 <template>
   <div class="table">
-    <table-action
+    <goods-table-action
       :headers="headers"
       :desserts="desserts"
       @add="addItem($event)"
       @edit="editItem($event)"
       @remove="removeItem($event)"
+      @update:Contractors="updateContractors($event)"
+      @update:Products="updateProducts($event)"
     />
     <va-pagination
       class="pagination"
@@ -18,64 +20,114 @@
 
 <script lang="ts">
 // vue
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 // Models
-import { DispatchedProduct as IDispatchedProduct } from "@/api/models";
+import { Expense as IExpense } from "@/api/models";
+import { Customer as ICustomer, Product as IProduct } from "@/api/models";
 import { headers } from "@/api/models";
 // component
-import TableAction from "@/components/BaseTableAction.vue";
+import GoodsTableAction from "@/components/Goods/GoodsTableAction.vue";
 // api
 import api from "@/api/index";
 
+interface ITable<T> {
+  items: Array<T>;
+  headers: Array<string>;
+  totalPages: number;
+}
+
 export default defineComponent({
-  components: { TableAction },
-  name: "DispatchedProduct",
+  components: { GoodsTableAction },
+  name: "Expense",
   data() {
     return {
-      headers: headers.dispatched_product,
-      desserts: [] as Array<IDispatchedProduct>,
-      totalPages: null as number | null,
+      headers: headers.expense,
+      desserts: [] as Array<IExpense>,
+      totalPages: 0,
       page: 1,
+      contractors: {
+        items: [] as Array<ICustomer>,
+        totalPages: 0,
+        headers: headers.customer,
+      } as ITable<ICustomer>,
+      products: {
+        items: [] as Array<IProduct>,
+        totalPages: 0,
+        headers: headers.product,
+      } as ITable<IProduct>,
+    };
+  },
+  provide() {
+    return {
+      contractors: computed(() => this.contractors),
+      products: computed(() => this.products),
     };
   },
   methods: {
-    setDesserts(desserts: Array<IDispatchedProduct>) {
+    setDesserts(desserts: Array<IExpense>) {
+      desserts.forEach((dessert) => {
+        dessert["date"] = new Date(dessert["date"])
+          .toLocaleString()
+          .slice(0, 10);
+      });
       this.desserts = desserts;
     },
     setTotalPages(pages: number) {
       this.totalPages = pages;
     },
     async updateData(page = 1) {
-      const data = await api.dispatched_product.getByPage(page);
+      const data = await api.expense.getByPage(page);
       this.setDesserts(data.items);
       this.setTotalPages(data._meta.total_pages);
     },
-    addItem(item: IDispatchedProduct) {
-      api.dispatched_product.add(item).then(
+    addItem(item: IExpense) {
+      api.expense.add(item).then(
         () => {
           this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function addItem in DispatchedProduct.vue", error)
+          console.warn("Function addItem in Expense.vue", error)
       );
     },
-    editItem(data: { id: number; item: IDispatchedProduct }) {
-      api.dispatched_product.change(data.id, data.item).then(
+    editItem(data: { id: number; item: IExpense }) {
+      api.expense.change(data.id, data.item).then(
         () => {
           this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function EditItem in DispatchedProduct.vue", error)
+          console.warn("Function EditItem in Expense.vue", error)
       );
     },
     removeItem(id: number) {
-      api.dispatched_product.remove(id).then(
+      api.expense.remove(id).then(
         () => {
           this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function removeItem in DispatchedProduct.vue", error)
+          console.warn("Function removeItem in Expense.vue", error)
       );
+    },
+    setContractorsItems(item: Array<ICustomer>) {
+      this.contractors.items = item;
+    },
+    setContractorsTotalPages(pages: number) {
+      this.contractors.totalPages = pages;
+    },
+    async updateContractors(page = 1) {
+      const data = await api.customer.getByPage(page);
+      this.setContractorsItems(data.items);
+      this.setContractorsTotalPages(data._meta.total_pages);
+    },
+    setProducts(item: Array<IProduct>) {
+      this.products.items = item;
+    },
+    setProductTotalPages(pages: number) {
+      this.products.totalPages = pages;
+    },
+    async updateProducts(page = 1) {
+      const data = await api.product.getByPage(page);
+      this.setProducts(data.items);
+      this.setProductTotalPages(data._meta.total_pages);
     },
   },
   watch: {
@@ -85,6 +137,7 @@ export default defineComponent({
   },
   mounted() {
     this.updateData();
+    this.updateProducts();
   },
 });
 </script>

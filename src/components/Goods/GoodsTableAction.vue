@@ -64,11 +64,11 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { Product, Supplier, Customer, DeliveredProduct, DispatchedProduct } from "@/api/models";
-import DispatchedProductDeliveredProductForm from "./DispatchedProductDeliveredProductForm.vue";
+import GoodsForm from "./GoodsForm.vue";
 type IDBTable = Product | Supplier | Customer | DeliveredProduct | DispatchedProduct;
 
 export default defineComponent({
-  components: { DispatchedProductDeliveredProductForm },
+  components: { GoodsForm },
   name: "ActionTable",
   emits: ["add", "edit", "remove", "update:Contractors", "update:Products"],
   props: {

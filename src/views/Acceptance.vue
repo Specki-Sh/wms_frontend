@@ -26,7 +26,7 @@ import { Acceptance as IAcceptance } from "@/api/models";
 import { Supplier as ISupplier, Product as IProduct } from "@/api/models";
 import { headers } from "@/api/models";
 // component
-import DispatchedProductDeliveredProductTableAction from "@/components/DispatchedProductDeliveredProduct/DispatchedProductDeliveredProductTableAction.vue";
+import GoodsTableAction from "@/components/Goods/GoodsTableAction.vue";
 // api
 import api from "@/api/index";
 
@@ -37,7 +37,7 @@ interface ITable<T> {
 }
 
 export default defineComponent({
-  components: { DispatchedProductDeliveredProductTableAction },
+  components: { GoodsTableAction },
   name: "Acceptance",
   data() {
     return {

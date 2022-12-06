@@ -4,8 +4,6 @@ import Product from "../views/Product.vue";
 import Contractors from "../views/contractors/Contractors.vue";
 import Customer from "../views/contractors/Customer.vue";
 import Supplier from "../views/contractors/Supplier.vue";
-import DeliveredProduct from "../views/DeliveredProduct.vue";
-import DispatchedProduct from "../views/DispatchedProduct.vue";
 import Acceptance from "../views/Acceptance.vue";
 import Expense from "../views/Expense.vue";
 import Report from "../views/Report.vue"
@@ -40,16 +38,6 @@ const routes: Array<RouteRecordRaw> = [
     path: "/contractors/supplier",
     name: "Supplier",
     component: Supplier,
-  },
-  {
-    path: "/delivered_product",
-    name: "DeliveredProduct",
-    component: DeliveredProduct,
-  },
-  {
-    path: "/dispatched_product",
-    name: "DispatchedProduct",
-    component: DispatchedProduct,
   },
   {
     path: "/acceptance",
