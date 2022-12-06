@@ -72,13 +72,14 @@ export default defineComponent({
       });
       this.desserts = desserts;
     },
-    setTotalPages(pages: number) {
-      this.totalPages = pages;
+    setTotalPages(total: number) {
+      this.totalPages = (total - total % 10) / 10;
+      if (total % 10 != 0) {total +=1}
     },
     async updateData(page = 1) {
       const data = await api.acceptance.getByPage(page);
       this.setDesserts(data.items);
-      this.setTotalPages(data._meta.total_pages);
+      this.setTotalPages(data.total);
     },
     addItem(item: IAcceptance) {
       api.acceptance.add(item).then(
@@ -110,24 +111,26 @@ export default defineComponent({
     setContractorsItems(item: Array<ISupplier>) {
       this.contractors.items = item;
     },
-    setContractorsTotalPages(pages: number) {
-      this.contractors.totalPages = pages;
+    setContractorsTotalPages(total: number) {
+      this.contractors.totalPages = (total - total % 10) / 10;
+        if (total % 10 != 0) {this.contractors.totalPages +=1}
     },
     async updateContractors(page = 1) {
       const data = await api.supplier.getByPage(page);
-      this.setContractorsItems(data.items);
-      this.setContractorsTotalPages(data._meta.total_pages);
+      this.setContractorsItems(data.suppliers);
+      this.setContractorsTotalPages(data.total);
     },
     setProducts(item: Array<IProduct>) {
       this.products.items = item;
     },
-    setProductTotalPages(pages: number) {
-      this.products.totalPages = pages;
+    setProductTotalPages(total: number) {
+      this.products.totalPages = (total - total % 10) / 10
+      if (total % 10 != 0) { this.products.totalPages += 1}
     },
     async updateProducts(page = 1) {
       const data = await api.product.getByPage(page);
-      this.setProducts(data.items);
-      this.setProductTotalPages(data._meta.total_pages);
+      this.setProducts(data.products);
+      this.setProductTotalPages(data.total);
     },
   },
   watch: {

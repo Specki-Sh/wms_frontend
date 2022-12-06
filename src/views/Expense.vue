@@ -115,8 +115,8 @@ export default defineComponent({
     },
     async updateContractors(page = 1) {
       const data = await api.customer.getByPage(page);
-      this.setContractorsItems(data.items);
-      this.setContractorsTotalPages(data._meta.total_pages);
+      this.setContractorsItems(data.customers);
+      this.setContractorsTotalPages(data.total);
     },
     setProducts(item: Array<IProduct>) {
       this.products.items = item;
