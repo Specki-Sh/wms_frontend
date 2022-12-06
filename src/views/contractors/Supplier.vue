@@ -6,26 +6,24 @@
       @add="addItem($event)"
       @edit="editItem($event)"
       @remove="removeItem($event)"
-    ></table-action>
+    />
+    <div class="table-example--pagination">
+      <va-pagination
+        class="pagination"
+        v-model="page"
+        :pages="totalPages"
+        input
+      />
+    </div>
     <div>
-            <div class="table-example--pagination">
-              <va-pagination
-                class="pagination"
-                v-model="page"
-                :pages="totalPages"
-                input
-              />
-            </div>
-            <div>
-              <va-input
-                class="flex mb-2 md3"
-                type="number"
-                placeholder="Items..."
-                label="Items per page"
-                v-model="per_page"
-              />
-            </div>
-      </div>
+      <va-input
+        class="flex mb-2 md3"
+        type="number"
+        placeholder="Items..."
+        label="Items per page"
+        v-model="per_page"
+      />
+    </div>
   </div>
 </template>
 
