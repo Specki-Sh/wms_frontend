@@ -1,5 +1,5 @@
 export interface Product {
-  id: number;
+  id?: number;
   name: string;
   code: string;
   unit: string;
@@ -13,19 +13,19 @@ export interface Warehouse {
 }
 
 export interface Customer {
-  id: number;
+  id?: number;
   inn: string;
   name: string;
 }
 
 export interface Supplier {
-  id: number;
+  id?: number;
   inn: string;
   name: string;
 }
 
 export interface DeliveredProduct {
-  id: number;
+  id?: number;
   supplier_id: number;
   product_id: number;
   quantity: number;
@@ -36,7 +36,7 @@ export interface DeliveredProduct {
 }
 
 export interface DispatchedProduct {
-  id: number;
+  id?: number;
   customer_id: number;
   product_id: number;
   quantity: number;
@@ -46,10 +46,19 @@ export interface DispatchedProduct {
   product?: string;
 }
 
+export interface Goods {
+  product_id: number;
+  quantity: number;
+  price: number;
+  product?: string;
+
+}
+
 export interface Acceptance {
-  id: number;
-  document_number: number;
-  delivered_products: Array<DeliveredProduct>;
+  id?: number;
+  number: number;
+  goods: Array<Goods>;
+  supplier_id: number;
   date: Date | string;
 }
 
