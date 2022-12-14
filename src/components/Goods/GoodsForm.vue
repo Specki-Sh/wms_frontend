@@ -57,7 +57,7 @@
   <div class="product-table">
     <va-data-table
       :items="modelValue['products']"
-      :columns="[...products.value.headers, 'quantity', 'action']"
+      :columns="[...products.value.headers, 'quantity', 'price', 'action']"
     >
       <template #headerPrepend>
         <div class="title-content">
@@ -76,6 +76,13 @@
         <va-input
           :model-value="modelValue.products[row.rowIndex].quantity"
           @update:model-value="addProductsQuantity(row.rowIndex, $event)"
+        />
+      </template>
+
+      <template #cell(price)="row">
+        <va-input
+          :model-value="modelValue.products[row.rowIndex].price"
+          @update:model-value="addProductPrice(row.rowIndex, $event)"
         />
       </template>
 
@@ -229,6 +236,14 @@ export default defineComponent({
     addProductsQuantity(id: number, quantity: number) {
       let items = this.modelValue.products;
       items[id].quantity = quantity;
+      this.$emit("update:modelValue", {
+        ...this.modelValue,
+        ["products"]: items,
+      });
+    },
+    addProductPrice(id: number, price: number) {
+      let items = this.modelValue.products;
+      items[id].price = price;
       this.$emit("update:modelValue", {
         ...this.modelValue,
         ["products"]: items,

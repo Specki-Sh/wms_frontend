@@ -22,17 +22,17 @@ export default function (instance: AxiosInstance): {
     },
 
     async getByPage(page: number, perPage = 15) {
-      const url = `dispatchs?page=${page}&per_page=${perPage}`;
+      const url = `document/expense/info/page/${page}/${perPage}`;
       const { data } = await instance.get(url);
       return data;
     },
 
     async add(expense: Expense) {
-      return await instance.post(`expense`, expense);
+      return await instance.post(`document/expense`, expense);
     },
 
-    async remove(id: number) {
-      return await instance.delete(`expense/${id}`);
+    async remove(document_number: number) {
+      return await instance.delete(`document/expense/number/${document_number}`);
     },
 
     async change(id: number, expense: Expense) {

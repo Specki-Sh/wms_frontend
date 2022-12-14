@@ -78,11 +78,25 @@ export default defineComponent({
     },
     async updateData(page = 1) {
       const data = await api.acceptance.getByPage(page);
-      this.setDesserts(data.items);
+      this.setDesserts(data.documents_info);
       this.setTotalPages(data.total);
     },
-    addItem(item: IAcceptance) {
-      api.acceptance.add(item).then(
+    addItem(item: any) {
+      let goods = [];
+      for (const product of item.products){
+        goods.push({
+          product_id: product.id,
+          quantity: product.quantity,
+          price: product.price,
+        })
+      }
+      const acceptance_document: IAcceptance = {
+        number: item.document_number,
+        supplier_id: item.contractor.id,
+        goods: goods,
+        date: item.date.toISOString().split('T')[0],
+      }
+      api.acceptance.add(acceptance_document).then(
         () => {
           this.updateData(this.page);
         },
@@ -99,8 +113,8 @@ export default defineComponent({
           console.warn("Function EditItem in Acceptance.vue", error)
       );
     },
-    removeItem(id: number) {
-      api.acceptance.remove(id).then(
+    removeItem(document_number: number) {
+      api.acceptance.remove(document_number).then(
         () => {
           this.updateData(this.page);
         },

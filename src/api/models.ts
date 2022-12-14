@@ -1,5 +1,5 @@
 export interface Product {
-  id?: number;
+  id: number;
   name: string;
   code: string;
   unit: string;
@@ -9,23 +9,24 @@ export interface Warehouse {
   id: number;
   product_id: number;
   quantity: number;
+  total_cost: number;
   product?: string;
 }
 
 export interface Customer {
-  id?: number;
-  inn: string;
+  id: number;
+  TIN: string;
   name: string;
 }
 
 export interface Supplier {
-  id?: number;
-  inn: string;
+  id: number;
+  TIN: string;
   name: string;
 }
 
 export interface DeliveredProduct {
-  id?: number;
+  id: number;
   supplier_id: number;
   product_id: number;
   quantity: number;
@@ -36,7 +37,7 @@ export interface DeliveredProduct {
 }
 
 export interface DispatchedProduct {
-  id?: number;
+  id: number;
   customer_id: number;
   product_id: number;
   quantity: number;
@@ -63,9 +64,10 @@ export interface Acceptance {
 }
 
 export interface Expense {
-  id: number;
-  document_number: number;
-  dispatched_products: Array<DispatchedProduct>;
+  id?: number;
+  number: number;
+  goods: Array<Goods>;
+  customer_id: number;
   date: Date | string;
 }
 
@@ -105,15 +107,19 @@ export const headers: { [key: string]: Array<string> } = {
     "price",
   ],
   warehouse: ["id", "product_id", "quantity"],
-  acceptance: ["id", "document_number", "date"],
-  expense: ["id", "document_number", "date"],
+  acceptance: ["number", "date"],
+  expense: ["number", "date"],
   report: [
     "product_name",
+    "product_code",
     "product_unit",
-    "product_price",
-    "opening_balance",
-    "delivered_product",
-    "dispatched_product",
-    "closing_balance",
+    "opening_balance_quantity",
+    "opening_balance_total_cost",
+    "acceptance_quantity",
+    "acceptance_total_cost",
+    "expense_quantity",
+    "expense_total_cost",
+    "closing_balance_quantity",
+    "closing_balance_total_cost"
   ],
 };

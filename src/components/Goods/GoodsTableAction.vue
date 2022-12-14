@@ -80,7 +80,7 @@ export default defineComponent({
       showAddModal: false,
       showEditModal: false,
       showRemoveModal: false,
-      DBModel: {} as IDBTable,
+      DBModel: {} as any,
       currentItem: {} as IDBTable,
     };
   },
@@ -126,8 +126,8 @@ export default defineComponent({
       this.showRemoveModal = !this.showRemoveModal;
     },
     removeItem() {
-      const id: number = this.DBModel.id;
-      this.$emit("remove", id);
+      const document_number: number = this.DBModel.number;
+      this.$emit("remove", document_number);
       this.clearDBModel();
     },
   },
