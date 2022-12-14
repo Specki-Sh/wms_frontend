@@ -1,91 +1,3 @@
-export interface Product {
-  id: number;
-  name: string;
-  code: string;
-  unit: string;
-}
-
-export interface Warehouse {
-  id: number;
-  product_id: number;
-  quantity: number;
-  total_cost: number;
-  product?: string;
-}
-
-export interface Customer {
-  id: number;
-  TIN: string;
-  name: string;
-}
-
-export interface Supplier {
-  id: number;
-  TIN: string;
-  name: string;
-}
-
-export interface DeliveredProduct {
-  id: number;
-  supplier_id: number;
-  product_id: number;
-  quantity: number;
-  price: number;
-
-  supplier?: string;
-  product?: string;
-}
-
-export interface DispatchedProduct {
-  id: number;
-  customer_id: number;
-  product_id: number;
-  quantity: number;
-  price: number;
-
-  customer?: string;
-  product?: string;
-}
-
-export interface Goods {
-  product_id: number;
-  quantity: number;
-  price: number;
-  product?: string;
-
-}
-
-export interface Acceptance {
-  id?: number;
-  number: number;
-  goods: Array<Goods>;
-  supplier_id: number;
-  date: Date | string;
-}
-
-export interface Expense {
-  id?: number;
-  number: number;
-  goods: Array<Goods>;
-  customer_id: number;
-  date: Date | string;
-}
-
-export interface Report {
-  id: number;
-  product: Product;
-  product_name: string;
-  product_unit: string;
-  product_price: number;
-  opening_balance: number;
-  delivered_product: number;
-  dispatched_product: number;
-  closing_balance: number;
-}
-
-export interface baseTable extends Product, Warehouse, Supplier, Customer, DispatchedProduct, DeliveredProduct, DeliveredProduct{
-}
-
 export const headers: { [key: string]: Array<string> } = {
   product: ["id", "name", "code", "unit"],
   customer: ["id", "name", "TIN"],
@@ -120,6 +32,100 @@ export const headers: { [key: string]: Array<string> } = {
     "expense_quantity",
     "expense_total_cost",
     "closing_balance_quantity",
-    "closing_balance_total_cost"
-  ],
+    "closing_balance_total_cost",
+  ]
 };
+
+
+interface ProductInfo {
+  name: string;
+  code: string;
+  unit: string;
+
+}
+
+interface ProductCard extends ProductInfo {
+  id: number;
+}
+
+interface GoodsCharacteristic {
+  quantity: number;
+  cost?: number;
+  price: number;
+}
+
+interface Goods extends GoodsCharacteristic {
+  product_id: number;
+}
+
+interface WarehouseProduct {
+  id: number;
+  product_id: number;
+  quantity: number;
+  price: number;
+  total_cost: number;
+}
+
+interface WarehouseProductExpanded extends WarehouseProduct, ProductInfo {
+}
+
+interface WarehousePaginate {
+  products: Array<WarehouseProductExpanded>;
+  total: number;
+}
+
+interface ProductsPaginate {
+  product: Array<ProductCard>;
+  total: number;
+}
+
+interface Contractor {
+  name: string;
+  TIN: string;
+}
+
+interface Customer extends Contractor {
+  id: number;
+}
+
+interface Supplier extends Contractor {
+  id: number;
+}
+
+interface CustomerPaginate {
+  customers: Array<Customer>;
+  total: number;
+}
+
+interface SupplierPaginate {
+  suppliers: Array<Supplier>;
+
+}
+
+interface DocumentInfo {
+  number: number;
+  date: Date;
+}
+
+interface DocumentInfoPaginate {
+  documents_info: Array<DocumentInfo>;
+  total: number;
+}
+
+interface MaterialState {
+  quantity: number;
+  total_cost: number;
+}
+
+interface MaterialReportRow {
+  product_info: ProductInfo;
+  beginning_balance: MaterialState;
+  closing_balance: MaterialState;
+  acceptance: GoodsCharacteristic;
+  expense: GoodsCharacteristic;
+}
+
+interface MaterialReport {
+  data: Array<MaterialReportRow>;
+}
+
