@@ -37,28 +37,28 @@ export const headers: { [key: string]: Array<string> } = {
 };
 
 
-interface ProductInfo {
+export interface ProductInfo {
   name: string;
   code: string;
   unit: string;
 
 }
 
-interface ProductCard extends ProductInfo {
+export interface ProductCard extends ProductInfo {
   id: number;
 }
 
-interface GoodsCharacteristic {
+export interface GoodsCharacteristic {
   quantity: number;
   cost?: number;
   price: number;
 }
 
-interface Goods extends GoodsCharacteristic {
+export interface Goods extends GoodsCharacteristic {
   product_id: number;
 }
 
-interface WarehouseProduct {
+export interface WarehouseProduct {
   id: number;
   product_id: number;
   quantity: number;
@@ -66,58 +66,58 @@ interface WarehouseProduct {
   total_cost: number;
 }
 
-interface WarehouseProductExpanded extends WarehouseProduct, ProductInfo {
+export interface WarehouseProductExpanded extends WarehouseProduct, ProductInfo {
 }
 
-interface WarehousePaginate {
+export interface WarehousePaginate {
   products: Array<WarehouseProductExpanded>;
   total: number;
 }
 
-interface ProductsPaginate {
-  product: Array<ProductCard>;
+export interface ProductsPaginate {
+  products: Array<ProductCard>;
   total: number;
 }
 
-interface Contractor {
+export interface Contractor {
   name: string;
   TIN: string;
 }
 
-interface Customer extends Contractor {
+export interface Customer extends Contractor {
   id: number;
 }
 
-interface Supplier extends Contractor {
+export interface Supplier extends Contractor {
   id: number;
 }
 
-interface CustomerPaginate {
+export interface CustomerPaginate {
   customers: Array<Customer>;
   total: number;
 }
 
-interface SupplierPaginate {
+export interface SupplierPaginate {
   suppliers: Array<Supplier>;
 
 }
 
-interface DocumentInfo {
+export interface DocumentInfo {
   number: number;
   date: Date;
 }
 
-interface DocumentInfoPaginate {
+export interface DocumentInfoPaginate {
   documents_info: Array<DocumentInfo>;
   total: number;
 }
 
-interface MaterialState {
+export interface MaterialState {
   quantity: number;
   total_cost: number;
 }
 
-interface MaterialReportRow {
+export interface MaterialReportRow {
   product_info: ProductInfo;
   beginning_balance: MaterialState;
   closing_balance: MaterialState;
@@ -125,7 +125,6 @@ interface MaterialReportRow {
   expense: GoodsCharacteristic;
 }
 
-interface MaterialReport {
+export interface MaterialReport {
   data: Array<MaterialReportRow>;
 }
-
