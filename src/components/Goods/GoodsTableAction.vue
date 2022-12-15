@@ -63,9 +63,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { Product, Supplier, Customer, DeliveredProduct, DispatchedProduct } from "@/api/models";
+import { ProductCard, Supplier, Customer, DeliveredProduct, DispatchedProduct } from "@/api/models";
 import GoodsForm from "./GoodsForm.vue";
-type IDBTable = Product | Supplier | Customer | DeliveredProduct | DispatchedProduct;
+type IDBTable = ProductCard | Supplier | Customer | DeliveredProduct | DispatchedProduct;
 
 export default defineComponent({
   components: { GoodsForm },
