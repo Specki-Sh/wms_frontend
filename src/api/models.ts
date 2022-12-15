@@ -1,3 +1,5 @@
+import supplier from "@/views/contractors/Supplier.vue";
+
 export const headers: { [key: string]: Array<string> } = {
   product: ["id", "name", "code", "unit"],
   customer: ["id", "name", "TIN"],
@@ -19,8 +21,7 @@ export const headers: { [key: string]: Array<string> } = {
     "price",
   ],
   warehouse: ["id", "product_id", "quantity"],
-  acceptance: ["number", "date"],
-  expense: ["number", "date"],
+  document_info: ["number", "date"],
   report: [
     "product_name",
     "product_code",
@@ -104,7 +105,7 @@ export interface SupplierPaginate {
 
 export interface DocumentInfo {
   number: number;
-  date: Date;
+  date: Date | string;
 }
 
 export interface DocumentInfoPaginate {
@@ -127,4 +128,22 @@ export interface MaterialReportRow {
 
 export interface MaterialReport {
   data: Array<MaterialReportRow>;
+}
+
+export interface DeliveredProduct extends Goods {
+  id: number
+}
+
+export interface DispatchedProduct extends Goods {
+  id: number
+}
+
+export interface ExpenseDocument extends DocumentInfo {
+  customer_id: number
+  goods: Array<Goods>
+}
+
+export interface AcceptanceDocument extends DocumentInfo {
+  supplier_id: number
+  goods: Array<Goods>
 }
