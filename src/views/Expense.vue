@@ -22,8 +22,13 @@
 // vue
 import { defineComponent, computed } from "vue";
 // Models
-import { Expense as IExpense } from "@/api/models";
-import { Supplier as ISupplier, Product as IProduct } from "@/api/models";
+import {
+  Goods as IGoods,
+  ExpenseDocument as IExpenseDocument,
+  Supplier as ISupplier,
+  ProductCard as IProductCard,
+  DocumentInfo as IDocumentInfo
+} from "@/api/models";
 import { headers } from "@/api/models";
 // component
 import GoodsTableAction from "@/components/Goods/GoodsTableAction.vue";
@@ -42,7 +47,7 @@ export default defineComponent({
   data() {
     return {
       headers: headers.expense,
-      desserts: [] as Array<IExpense>,
+      desserts: [] as Array<IDocumentInfo>,
       totalPages: 0,
       page: 1,
       contractors: {
@@ -51,10 +56,10 @@ export default defineComponent({
         headers: headers.customer,
       } as ITable<ISupplier>,
       products: {
-        items: [] as Array<IProduct>,
+        items: [] as Array<IProductCard>,
         totalPages: 0,
         headers: headers.product,
-      } as ITable<IProduct>,
+      } as ITable<IProductCard>,
     };
   },
   provide() {
@@ -64,12 +69,7 @@ export default defineComponent({
     };
   },
   methods: {
-    setDesserts(desserts: Array<IExpense>) {
-      desserts.forEach((dessert) => {
-        dessert["date"] = new Date(dessert["date"])
-          .toLocaleString()
-          .slice(0, 10);
-      });
+    setDesserts(desserts: Array<IDocumentInfo>) {
       this.desserts = desserts;
     },
     setTotalPages(total: number) {
@@ -82,7 +82,7 @@ export default defineComponent({
       this.setTotalPages(data.total);
     },
     addItem(item: any) {
-      let goods = [];
+      let goods: Array<IGoods> = [];
       for (const product of item.products){
         goods.push({
           product_id: product.id,
@@ -90,11 +90,11 @@ export default defineComponent({
           price: product.price,
         })
       }
-      const expense_document: IExpense = {
+      const expense_document: IExpenseDocument = {
         number: item.document_number,
         customer_id: item.contractor.id,
         goods: goods,
-        date: item.date.toISOString().split('T')[0],
+        date: item.date,
       }
       api.expense.add(expense_document).then(
         () => {
@@ -104,7 +104,7 @@ export default defineComponent({
           console.warn("Function addItem in Expense.vue", error)
       );
     },
-    editItem(data: { id: number; item: IExpense }) {
+    editItem(data: { id: number; item: IExpenseDocument }) {
       api.expense.change(data.id, data.item).then(
         () => {
           this.updateData(this.page);
@@ -134,7 +134,7 @@ export default defineComponent({
       this.setContractorsItems(data.customers);
       this.setContractorsTotalPages(data.total);
     },
-    setProducts(item: Array<IProduct>) {
+    setProducts(item: Array<IProductCard>) {
       this.products.items = item;
     },
     setProductTotalPages(total: number) {
