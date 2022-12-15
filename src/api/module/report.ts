@@ -1,5 +1,4 @@
 import { AxiosInstance, AxiosResponse } from "axios";
-import { Report } from "../models";
 
 export default function (instance: AxiosInstance) {
   return {
