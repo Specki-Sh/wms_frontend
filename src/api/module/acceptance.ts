@@ -1,13 +1,13 @@
 import { AxiosInstance, AxiosResponse } from "axios";
-import { Acceptance } from "../models";
+import { AcceptanceDocument as IAcceptanceDocument } from "../models";
 
 export default function (instance: AxiosInstance): {
   getAll(): Promise<any>;
   get(id: number): Promise<any>;
   getByPage(page: number, perPage?: number): Promise<any>;
-  add(acceptance: Acceptance): Promise<AxiosResponse<any, any>>;
+  add(acceptance: IAcceptanceDocument): Promise<AxiosResponse<any, any>>;
   remove(id: number): Promise<any>;
-  change(id: number, acceptance: Acceptance): Promise<any>;
+  change(id: number, acceptance: IAcceptanceDocument): Promise<any>;
 } {
   return {
     // change it, for now it takes only 10 items by first page
@@ -27,7 +27,7 @@ export default function (instance: AxiosInstance): {
       return data;
     },
 
-    async add(acceptance: Acceptance) {
+    async add(acceptance: IAcceptanceDocument) {
       return await instance.post(`document/acceptance`, acceptance);
     },
 
@@ -35,7 +35,7 @@ export default function (instance: AxiosInstance): {
       return await instance.delete(`document/acceptance/number/${document_number}`);
     },
 
-    async change(id: number, acceptance: Acceptance) {
+    async change(id: number, acceptance: IAcceptanceDocument) {
       return await instance.put(`acceptance/${id}`, acceptance);
     },
   };
