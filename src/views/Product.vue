@@ -31,7 +31,7 @@
 // vue
 import { defineComponent } from "vue";
 // Models
-import { Product as IProduct } from "@/api/models";
+import { ProductCard, ProductsPaginate } from "@/api/models";
 import { headers } from "@/api/models";
 // component
 import TableAction from "@/components/BaseTableAction.vue";
@@ -44,14 +44,14 @@ export default defineComponent({
   data() {
     return {
       headers: headers.product,
-      desserts: [] as Array<IProduct>,
+      desserts: [] as Array<ProductCard>,
       totalPages: null as number | null,
       page: 1,
       per_page: 10,
     };
   },
   methods: {
-    setDesserts(desserts: Array<IProduct>) {
+    setDesserts(desserts: Array<ProductCard>) {
       this.desserts = desserts;
     },
     setTotalPages(total: number) {
@@ -59,11 +59,11 @@ export default defineComponent({
       if (total % this.per_page != 0){ this.totalPages += 1}
     },
     async updateData() {
-      const data = await api.product.getByPage(this.page, this.per_page);
+      const data: ProductsPaginate = await api.product.getByPage(this.page, this.per_page);
       this.setDesserts(data.products);
       this.setTotalPages(data.total);
     },
-    addItem(item: IProduct) {
+    addItem(item: ProductCard) {
       api.product.add(item).then(
         () => {
           this.updateData();
@@ -72,7 +72,7 @@ export default defineComponent({
           console.warn("Function addItem in Product.vue", error)
       );
     },
-    editItem(data: { id: number; item: IProduct }) {
+    editItem(data: { id: number; item: ProductCard }) {
       api.product.change(data.id, data.item).then(
         () => {
           this.updateData();
