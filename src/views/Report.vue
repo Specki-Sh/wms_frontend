@@ -13,7 +13,7 @@
 // vue
 import { defineComponent } from "vue";
 // Models
-import { Report as IReport } from "@/api/models";
+import { MaterialReport, MaterialReportRow } from "@/api/models";
 import { headers } from "@/api/models";
 // api
 import api from "@/api/index";
@@ -23,7 +23,7 @@ export default defineComponent({
   data() {
     return {
       headers: headers.report,
-      desserts: [] as Array<IReport>,
+      desserts: [] as Array<MaterialReportRow>,
       range: { start: null, end: null } as {
         start: Date | null;
         end: Date | null;
@@ -31,7 +31,7 @@ export default defineComponent({
     };
   },
   methods: {
-    setDesserts(desserts: any) {
+    setDesserts(desserts: Array<MaterialReportRow>) {
       desserts.forEach((elm: any) => {
         elm["product_name"] = elm.product_info.name;
         elm["product_code"] = elm.product_info.code;
@@ -57,11 +57,11 @@ export default defineComponent({
       this.desserts = desserts;
     },
     async updateData(range: { start: Date; end: Date }) {
-      const data = await api.report.get_by_date({
+      const report: MaterialReport = await api.report.get_by_date({
         _from: range.start.toISOString().split('T')[0],
         till: range.end.toISOString().split('T')[0],
       });
-      this.setDesserts(data.data);
+      this.setDesserts(report.data);
     },
   },
   watch: {
