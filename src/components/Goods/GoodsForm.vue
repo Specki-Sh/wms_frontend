@@ -40,14 +40,7 @@
     </div>
     <div class="line date">
       <va-date-input
-        :model-value="modelValue['date']"
-        @update:model-value="
-          $emit('update:modelValue', {
-            ...modelValue,
-            ['date']: $event,
-          })
-        "
-      >
+        v-model="modelValue['date']">
         <template #prepend>
           <span>Date</span>
         </template>
@@ -152,7 +145,7 @@ import { defineComponent } from "vue";
 import {
   Supplier as ISupplier,
   Customer as ICustomer,
-  Product as IProduct,
+  ProductCard as IProductCard,
 } from "@/api/models";
 interface IAction<T> {
   showModal: boolean;
@@ -174,8 +167,8 @@ export default defineComponent({
       productAction: {
         showModal: false,
         currentPage: 1,
-        selectedItems: [] as Array<IProduct>,
-      } as IAction<IProduct>,
+        selectedItems: [] as Array<IProductCard>,
+      } as IAction<IProductCard>,
     };
   },
   inject: ["contractors", "products"],
@@ -209,7 +202,7 @@ export default defineComponent({
     },
     // Todo: Ура первое место где я уверен, что нужен тест. НАПИСАТЬ :)
     setProducts() {
-      let items = [] as Array<IProduct>;
+      let items = [] as Array<IProductCard>;
       if (this.modelValue.products !== undefined) {
         items = this.modelValue.products;
         items.push(
