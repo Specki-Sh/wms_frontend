@@ -1,13 +1,13 @@
 import { AxiosInstance, AxiosResponse } from "axios";
-import { Product } from "../models";
+import { ProductInfo as IProductInfo, ProductCard as IProductCard } from "../models";
 
 export default function (instance: AxiosInstance): {
   getAll(): Promise<any>;
   get(id: number): Promise<any>;
   getByPage(page: number, perPage?: number): Promise<any>;
-  add(product: Product): Promise<AxiosResponse<any, any>>;
+  add(product: IProductInfo): Promise<AxiosResponse<any, any>>;
   remove(id: number): Promise<any>;
-  change(id: number, product: Product): Promise<any>;
+  change(id: number, product: IProductCard): Promise<any>;
 } {
   return {
     async getAll() {
@@ -26,7 +26,7 @@ export default function (instance: AxiosInstance): {
       return data;
     },
 
-    async add(product: Product) {
+    async add(product: IProductInfo) {
       return await instance.post(`product`, product);
     },
 
@@ -34,7 +34,7 @@ export default function (instance: AxiosInstance): {
       return await instance.delete(`product/${id}`);
     },
 
-    async change(id: number, product: Product) {
+    async change(id: number, product: IProductCard) {
       return await instance.put(`product/${id}`, product);
     },
   };
