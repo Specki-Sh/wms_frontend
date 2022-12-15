@@ -46,7 +46,7 @@ export default defineComponent({
   name: "Acceptance",
   data() {
     return {
-      headers: headers.acceptance,
+      headers: headers.document_info,
       desserts: [] as Array<IDocumentInfo>,
       totalPages: 0,
       page: 1,
@@ -90,11 +90,12 @@ export default defineComponent({
           price: product.price,
         })
       }
+      const date: Array<string> = item.date.toLocaleDateString().split('/')
       const acceptance_document: IAcceptanceDocument = {
         number: item.document_number,
         supplier_id: item.contractor.id,
         goods: goods,
-        date: item.date,
+        date: [date[2], date[0], date[1]].join('-'),
       }
       api.acceptance.add(acceptance_document).then(
         () => {

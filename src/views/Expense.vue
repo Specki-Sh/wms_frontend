@@ -25,7 +25,7 @@ import { defineComponent, computed } from "vue";
 import {
   Goods as IGoods,
   ExpenseDocument as IExpenseDocument,
-  Supplier as ISupplier,
+  Customer as ICustomer,
   ProductCard as IProductCard,
   DocumentInfo as IDocumentInfo
 } from "@/api/models";
@@ -46,15 +46,15 @@ export default defineComponent({
   name: "Expense",
   data() {
     return {
-      headers: headers.expense,
+      headers: headers.document_info,
       desserts: [] as Array<IDocumentInfo>,
       totalPages: 0,
       page: 1,
       contractors: {
-        items: [] as Array<ISupplier>,
+        items: [] as Array<ICustomer>,
         totalPages: 0,
         headers: headers.customer,
-      } as ITable<ISupplier>,
+      } as ITable<ICustomer>,
       products: {
         items: [] as Array<IProductCard>,
         totalPages: 0,
@@ -90,11 +90,12 @@ export default defineComponent({
           price: product.price,
         })
       }
+      const date: Array<string> = item.date.toLocaleDateString().split('/')
       const expense_document: IExpenseDocument = {
         number: item.document_number,
         customer_id: item.contractor.id,
         goods: goods,
-        date: item.date,
+        date: [date[2], date[0], date[1]].join('-'),
       }
       api.expense.add(expense_document).then(
         () => {
@@ -122,7 +123,7 @@ export default defineComponent({
           console.warn("Function removeItem in Expense.vue", error)
       );
     },
-    setContractorsItems(item: Array<ISupplier>) {
+    setContractorsItems(item: Array<ICustomer>) {
       this.contractors.items = item;
     },
     setContractorsTotalPages(total: number) {
