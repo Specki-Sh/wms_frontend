@@ -1,5 +1,5 @@
-import { Warehouse, DeliveredProduct, DispatchedProduct } from "@/api/models";
-type arrayDBModels = Array<Warehouse> | Array<DeliveredProduct> | Array<DispatchedProduct>;
+import { WarehouseProduct, DeliveredProduct, DispatchedProduct } from "@/api/models";
+type arrayDBModels = Array<WarehouseProduct> | Array<DeliveredProduct> | Array<DispatchedProduct>;
 //
 // export function addNameById(objArr: arrayDBModels): void {
 //   for (const obj of objArr) {
