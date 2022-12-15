@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "core-js": "^3.26.1",
-    "moment": "^2.29.4",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",
     "vuestic-ui": "^1.5.2"
