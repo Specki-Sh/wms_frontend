@@ -1,13 +1,13 @@
 import { AxiosInstance, AxiosResponse } from "axios";
-import { Expense } from "../models";
+import { ExpenseDocument as IExpenseDocument } from "../models";
 
 export default function (instance: AxiosInstance): {
   getAll(): Promise<any>;
   get(id: number): Promise<any>;
   getByPage(page: number, perPage?: number): Promise<any>;
-  add(expense: Expense): Promise<AxiosResponse<any, any>>;
+  add(expense: IExpenseDocument): Promise<AxiosResponse<any, any>>;
   remove(id: number): Promise<any>;
-  change(id: number, expense: Expense): Promise<any>;
+  change(id: number, expense: IExpenseDocument): Promise<any>;
 } {
   return {
     // change it, for now it takes only 10 items by first page
@@ -27,7 +27,7 @@ export default function (instance: AxiosInstance): {
       return data;
     },
 
-    async add(expense: Expense) {
+    async add(expense: IExpenseDocument) {
       return await instance.post(`document/expense`, expense);
     },
 
@@ -35,7 +35,7 @@ export default function (instance: AxiosInstance): {
       return await instance.delete(`document/expense/number/${document_number}`);
     },
 
-    async change(id: number, expense: Expense) {
+    async change(id: number, expense: IExpenseDocument) {
       return await instance.put(`expense/${id}`, expense);
     },
   };
