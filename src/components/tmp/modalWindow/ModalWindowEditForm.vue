@@ -51,7 +51,7 @@ import BaseModal from "@/components/tmp/BaseModal.vue";
 import BaseInput from "@/components/tmp/BaseInput.vue";
 import ModalChoseTable from "@/components/tmp/modalWindow/ModalChooseTable.vue";
 import { isTable } from "@/utils";
-import { baseTable as IBaseTable } from "@/api/models";
+
 
 export default defineComponent({
   components: { BaseModal, BaseInput, ModalChoseTable },
@@ -62,15 +62,15 @@ export default defineComponent({
       headers: this.$attrs.headers,
       isChoose: false,
       chooseName: "" as string,
-      selectedItem: {} as IBaseTable,
+      selectedItem: {} as any,
     };
   },
   methods: {
-    chooseItem(item: IBaseTable) {
+    chooseItem(item: any) {
       this.selectedItem = item;
     },
     clearSelectedItem() {
-      this.selectedItem = {} as IBaseTable;
+      this.selectedItem = {} as any;
     },
     pushToModelSelectedItem() {
       this.dbModel[this.chooseName] = this.selectedItem.name;

@@ -22,7 +22,7 @@ import { defineComponent } from "vue";
 import BaseModal from "@/components/tmp/BaseModal.vue";
 import BaseTable from "@/components/tmp/table/BaseTable.vue";
 import BaseIcon from "@/components/tmp/BaseIcon.vue";
-import { baseTable as IBaseTable, headers as allHeaders } from "@/api/models";
+import { headers as allHeaders } from "@/api/models";
 import api from "@/api";
 
 export default defineComponent({
@@ -32,7 +32,7 @@ export default defineComponent({
   },
   data() {
     return {
-      desserts: [] as Array<IBaseTable>,
+      desserts: [] as Array<any>,
     };
   },
   computed: {
@@ -44,7 +44,7 @@ export default defineComponent({
     },
   },
   methods: {
-    setDesserts(desserts: Array<IBaseTable>) {
+    setDesserts(desserts: Array<any>) {
       this.desserts = desserts;
     },
     async updateDessert() {
