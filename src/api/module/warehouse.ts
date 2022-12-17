@@ -11,5 +11,11 @@ export default function (instance: AxiosInstance) {
       const { data } = await instance.get(`warehouse/${id}`);
       return data;
     },
+
+    async getByPage(page: number, perPage = 15) {
+      const url = `warehouse/page/${page}/${perPage}`;
+      const { data } = await instance.get(url);
+      return data;
+    },
   };
 }
