@@ -13,12 +13,17 @@
       </template>
 
       <template #cell(action)="row">
+        <va-button-group  preset="secondary" border-color="primary">
+            <va-button
+              @click="viewEvent(row.rowKey.date)"
+              icon="visibility"
+            ></va-button>
             <va-button
               @click="removeEvent(row.rowIndex)"
               icon="delete_outline"
-              flat
-            >
-            </va-button>
+            ></va-button>
+        </va-button-group>
+
       </template>
     </va-data-table>
   </div>
@@ -37,17 +42,29 @@
         @update:Products="$emit('update:Products', $event)"
       />
     </va-modal>
+<!--    <va-modal-->
+<!--      v-model="showEditModal"-->
+<!--      @cancel="clearDBModel()"-->
+<!--      @ok="editItem()"-->
+<!--      title="Edit"-->
+<!--    >-->
+<!--      <goods-form-->
+<!--        :labels="headers"-->
+<!--        v-model="DBModel"-->
+<!--        @update:Contractors="$emit('update:Contractors', $event)"-->
+<!--        @update:Products="$emit('update:Products', $event)"-->
+<!--      />-->
+<!--    </va-modal>-->
     <va-modal
-      v-model="showEditModal"
+      v-model="showViewModal"
       @cancel="clearDBModel()"
-      @ok="editItem()"
-      title="Edit"
+      @ok="clearDBModel()"
+      title="View"
     >
       <goods-form
         :labels="headers"
         v-model="DBModel"
-        @update:Contractors="$emit('update:Contractors', $event)"
-        @update:Products="$emit('update:Products', $event)"
+        :readonly="true"
       />
     </va-modal>
     <va-modal
@@ -63,28 +80,30 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { ProductCard, Supplier, Customer, DeliveredProduct, DispatchedProduct } from "@/api/models";
+import { AcceptanceDocument, ExpenseDocument} from "@/api/models";
 import GoodsForm from "./GoodsForm.vue";
-type IDBTable = ProductCard | Supplier | Customer | DeliveredProduct | DispatchedProduct;
+type IDBTable = any ;
+type IDocument = AcceptanceDocument | ExpenseDocument
 
 export default defineComponent({
   components: { GoodsForm },
   name: "ActionTable",
-  emits: ["add", "edit", "remove", "update:Contractors", "update:Products"],
+  emits: ["add", "edit", "remove", "update:Acceptance_document", "update:Contractors", "update:Products"],
   props: {
     headers: { type: Array as PropType<Array<string>>, required: true },
     desserts: { type: Array as PropType<Array<IDBTable>>, required: true },
   },
+  inject: ["document"],
   data() {
     return {
       showAddModal: false,
       showEditModal: false,
       showRemoveModal: false,
+      showViewModal: false,
       DBModel: {} as any,
       currentItem: {} as IDBTable,
     };
   },
-
   methods: {
     setDBModel(item: IDBTable) {
       this.DBModel = item;
@@ -104,18 +123,27 @@ export default defineComponent({
       this.$emit("add", this.DBModel);
       this.clearDBModel();
     },
-    // edit Event
-    editEvent(id: number) {
-      this.changeEditModalStatus();
-      this.setDBModel(this.desserts[id]);
+    // // edit Event
+    // editEvent(id: number) {
+    //   this.changeEditModalStatus();
+    //   this.setDBModel(this.desserts[id]);
+    // },
+    // changeEditModalStatus() {
+    //   this.showEditModal = !this.showEditModal;
+    // },
+    // editItem() {
+    //   const id: number = this.DBModel.id;
+    //   this.$emit("edit", { id, item: this.DBModel });
+    //   this.clearDBModel();
+    // },
+    // view Event
+    viewEvent(document_number: number) {
+      this.changeViewModalStatus();
+      this.$emit("update:Acceptance_document", document_number);
+      this.setDBModel(this.document);
     },
-    changeEditModalStatus() {
+    changeViewModalStatus() {
       this.showEditModal = !this.showEditModal;
-    },
-    editItem() {
-      const id: number = this.DBModel.id;
-      this.$emit("edit", { id, item: this.DBModel });
-      this.clearDBModel();
     },
     // remove Event
     removeEvent(id: number) {
