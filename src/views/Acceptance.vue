@@ -4,10 +4,11 @@
       :headers="headers"
       :desserts="desserts"
       @add="addItem($event)"
-      @edit="editItem($event)"
+      @get="getItem($event)"
       @remove="removeItem($event)"
       @update:Contractors="updateContractors($event)"
       @update:Products="updateProducts($event)"
+      @update:Acceptance_document="UpdateAcceptanceDocument($event)"
     />
     <va-pagination
       class="pagination"
@@ -20,16 +21,16 @@
 
 <script lang="ts">
 // vue
-import { defineComponent, computed } from "vue";
+import { computed, defineComponent } from "vue";
 // Models
 import {
-  Goods as IGoods,
   AcceptanceDocument as IAcceptanceDocument,
   Customer as ICustomer,
-  ProductCard as IProductCard,
-  DocumentInfo as IDocumentInfo
+  DocumentInfo as IDocumentInfo,
+  Goods as IGoods,
+  headers,
+  ProductCard as IProductCard
 } from "@/api/models";
-import { headers } from "@/api/models";
 // component
 import GoodsTableAction from "@/components/Goods/GoodsTableAction.vue";
 // api
@@ -60,12 +61,14 @@ export default defineComponent({
         totalPages: 0,
         headers: headers.product,
       } as ITable<IProductCard>,
+      acceptance_document: {} as IAcceptanceDocument
     };
   },
   provide() {
     return {
       contractors: computed(() => this.contractors),
       products: computed(() => this.products),
+      acceptance_document: computed(() => this.acceptance_document)
     };
   },
   methods: {
@@ -105,13 +108,20 @@ export default defineComponent({
           console.warn("Function addItem in Acceptance.vue", error)
       );
     },
-    editItem(data: { id: number; item: IAcceptanceDocument }) {
-      api.acceptance.change(data.id, data.item).then(
+    // editItem(data: { id: number; item: IAcceptanceDocument }) {
+    //   api.acceptance.change(data.id, data.item).then(
+    //     () => {
+    //       this.updateData(this.page);
+    //     },
+    //     (error: unknown) =>
+    //       console.warn("Function EditItem in Acceptance.vue", error)
+    //   );
+    getItem(document_number: number) {
+      api.accetpance.get_by_document_number(document_number).then(
         () => {
-          this.updateData(this.page);
         },
         (error: unknown) =>
-          console.warn("Function EditItem in Acceptance.vue", error)
+          console.warn("Function GetItem in Acceptance.vue", error)
       );
     },
     removeItem(document_number: number) {
@@ -134,6 +144,9 @@ export default defineComponent({
       const data = await api.supplier.getByPage(page);
       this.setContractorsItems(data.suppliers);
       this.setContractorsTotalPages(data.total);
+    },
+    async UpdateAcceptanceDocument(document_number: number) {
+      this.acceptance_document = await api.acceptance.getByDocumentNumber(document_number)
     },
     setProducts(item: Array<IProductCard>) {
       this.products.items = item;
