@@ -16,8 +16,8 @@ export default function (instance: AxiosInstance): {
       return data;
     },
 
-    async get(id: number) {
-      const { data } = await instance.get(`acceptance/${id}`);
+    async get(document_number: number) {
+      const { data } = await instance.get(`document/acceptance/page/${document_number}`);
       return data;
     },
 
