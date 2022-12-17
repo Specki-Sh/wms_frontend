@@ -20,7 +20,7 @@ export const headers: { [key: string]: Array<string> } = {
     "quantity",
     "price",
   ],
-  warehouse: ["id", "product_id", "quantity"],
+  warehouse: ["id", "name", "code", "unit", "quantity", "price", "total_cost"],
   document_info: ["number", "date"],
   report: [
     "product_name",
